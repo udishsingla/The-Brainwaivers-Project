@@ -1,0 +1,338 @@
+/**
+ * =========================================================================
+ * ALL INDIA COUNCIL FOR TECHNICAL EDUCATION (AICTE) - SIH 2026
+ * Unified Aesthetic Engine & Dynamic Color System
+ * Dark Mode: Obsidian Pitch Black Shades (#07090D, #0E1016, #141824)
+ * Light Mode: High-Contrast Pure Blue & White (#F3F7FC, #FFFFFF, #2563EB)
+ * Zero Emojis • Vector Icons • Max Micro-Animations • Breathable Layout
+ * =========================================================================
+ */
+
+:root {
+    /* -----------------------------------------------------------------
+       DARK MODE TOKENS (Obsidian Pitch Black & High-Tech Cyan/Blue Glow)
+       ----------------------------------------------------------------- */
+    --bg-main: #07090E;
+    --bg-alt: #0D1017;
+    --surface-main: #111520;
+    --surface-card: rgba(17, 21, 32, 0.85);
+    --surface-hover: #192030;
+    --border-main: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(59, 130, 246, 0.5);
+    --border-glow: rgba(59, 130, 246, 0.25);
+
+    --bright-main: #F8FAFC;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --muted-main: #64748B;
+
+    --brand-primary: #3B82F6;
+    --brand-primary-hover: #2563EB;
+    --brand-secondary: #06B6D4;
+    --brand-gradient: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    --accent-main: #2563EB;
+
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-danger: #F43F5E;
+    --color-info: #0EA5E9;
+
+    --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.65);
+    --shadow-hover: 0 25px 60px rgba(37, 99, 235, 0.22);
+    --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.25);
+
+    --font-heading: 'Montserrat', 'Inter', -apple-system, sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+/* -----------------------------------------------------------------
+   LIGHT MODE TOKENS: CRISP BLUE & WHITE
+   Pure White Cards, Soft Ice-Blue Canvas, Deep Navy High-Legibility Text
+   ----------------------------------------------------------------- */
+html.light-mode {
+    --bg-main: #F3F7FC;
+    --bg-alt: #E9F1FA;
+    --surface-main: #FFFFFF;
+    --surface-card: #FFFFFF;
+    --surface-hover: #F0F6FF;
+    --border-main: #D6E4F0;
+    --border-hover: #2563EB;
+    --border-glow: rgba(37, 99, 246, 0.2);
+
+    --bright-main: #0B132B;
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --muted-main: #64748B;
+
+    --brand-primary: #2563EB;
+    --brand-primary-hover: #1D4ED8;
+    --brand-secondary: #0284C7;
+    --brand-gradient: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #0284C7 100%);
+    --accent-main: #2563EB;
+
+    --shadow-card: 0 10px 30px rgba(37, 99, 235, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+    --shadow-hover: 0 20px 40px rgba(37, 99, 235, 0.16);
+    --shadow-glow: 0 0 25px rgba(37, 99, 235, 0.15);
+}
+
+/* Base Body Application */
+body {
+    background-color: var(--bg-main);
+    color: var(--bright-main);
+    font-family: var(--font-body);
+    transition: background-color 0.35s ease, color 0.35s ease;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism & Card Panel Rules */
+.ui-card,
+.glass-panel,
+.portal-card,
+.solver-panel {
+    background: var(--surface-card) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--border-main) !important;
+    box-shadow: var(--shadow-card) !important;
+    border-radius: 1.25rem !important;
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.ui-card:hover,
+.portal-card:hover {
+    border-color: var(--border-hover) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+/* Inputs & Form Fields */
+input,
+select,
+textarea,
+.input-box,
+.input-control {
+    background: var(--bg-alt) !important;
+    border: 1px solid var(--border-main) !important;
+    color: var(--bright-main) !important;
+    border-radius: 0.875rem !important;
+    padding: 0.65rem 1rem !important;
+    transition: all 0.25s ease !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.input-box:focus,
+.input-control:focus {
+    border-color: var(--brand-primary) !important;
+    box-shadow: 0 0 0 3px var(--border-glow) !important;
+    outline: none !important;
+}
+
+/* =========================================================================
+   MAX ANIMATIONS & INTERACTIVE DYNAMICS
+   ========================================================================= */
+
+/* Button Hover Physics & Shimmer */
+.btn-brand,
+.ui-btn-primary,
+.btn-primary {
+    background: var(--brand-gradient) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 0.875rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    cursor: pointer !important;
+}
+
+.btn-brand:hover,
+.ui-btn-primary:hover,
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45) !important;
+}
+
+.btn-brand:active,
+.ui-btn-primary:active,
+.btn-primary:active {
+    transform: translateY(1px) scale(0.97) !important;
+}
+
+/* Button Radiant Light Sweep */
+.btn-brand::after,
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.75s ease;
+}
+
+.btn-brand:hover::after,
+.btn-primary:hover::after {
+    left: 150%;
+}
+
+/* Micro-badge Pulse */
+.pulse-badge {
+    position: relative;
+}
+.pulse-badge::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.4;
+    animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    z-index: -1;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.25); opacity: 0; }
+}
+
+/* Animated Floating Navbar Scanline */
+@keyframes navbarScan {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.navbar-scanline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--brand-primary), var(--brand-secondary), transparent);
+    opacity: 0.85;
+    animation: navbarScan 6s ease-in-out infinite;
+}
+
+/* 3D Interactive Card Deck Animation Engine */
+.deck-stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 1400px;
+    padding: 1.5rem 0;
+    min-height: 420px;
+}
+
+.interactive-card {
+    position: absolute;
+    width: 100%;
+    max-width: 740px;
+    min-height: 400px;
+    background: var(--surface-card);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-main);
+    border-radius: 1.5rem;
+    padding: 2.25rem;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, filter 0.5s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    user-select: none;
+    transform-origin: center bottom;
+}
+
+.interactive-card.state-active {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+    z-index: 30;
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-hover), 0 0 35px var(--border-glow);
+}
+
+.interactive-card.state-next {
+    transform: translateY(24px) scale(0.95) rotate(2.8deg);
+    opacity: 0.82;
+    filter: blur(0.7px);
+    z-index: 20;
+    pointer-events: auto;
+}
+
+.interactive-card.state-deep {
+    transform: translateY(46px) scale(0.89) rotate(-2.8deg);
+    opacity: 0.45;
+    filter: blur(1.5px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.interactive-card.state-hidden {
+    transform: translateX(-130%) rotate(-15deg) scale(0.75);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Card 3D Dynamic Tilt Hover */
+.interactive-card.state-active:hover {
+    transform: translateY(-6px) scale(1.01) rotate(0.2deg);
+    border-color: var(--brand-secondary);
+}
+
+/* Solver Selected Ticket Active Ripple */
+.active-ticket-selected {
+    border-color: var(--brand-primary) !important;
+    background: rgba(37, 99, 235, 0.12) !important;
+    box-shadow: 0 0 20px var(--border-glow) !important;
+    transform: translateX(4px);
+}
+
+/* =========================================================================
+   GENEROUS "KHULA KHULA" (AIRY, DECONGESTED) SPACING OVERRIDES
+   ========================================================================= */
+.khula-container {
+    padding: 2.5rem 2rem;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .khula-container {
+        padding: 3.5rem 4rem;
+        gap: 3rem;
+    }
+}
+
+.khula-card {
+    padding: 1.85rem !important;
+    margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .khula-card {
+        padding: 2.25rem !important;
+    }
+}
+
+/* Staggered Entrance Animations for Cards */
+@keyframes fadeInUpStagger {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUpStagger 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}

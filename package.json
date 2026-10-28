@@ -1,0 +1,35 @@
+{
+  "name": "aicte-complaint-overlap-system",
+  "version": "1.0.0",
+  "description": "AICTE Integrated Institution Complaint Monitoring & Cross-Bureau Overlap Redressal System - SIH 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node cluster.js",
+    "server": "node server.js",
+    "dev": "node --watch server.js",
+    "cluster": "node cluster.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.9",
+    "express": "^4.21.2",
+    "ioredis": "^6.0.0",
+    "kafkajs": "^2.2.4",
+    "mysql2": "^3.24.6",
+    "next": "^14.2.15",
+    "nodemon": "^3.1.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "keywords": [
+    "aicte",
+    "sih2026",
+    "complaint-monitoring",
+    "overlap-detection",
+    "bloom-filter",
+    "high-concurrency"
+  ],
+  "author": "SIH 2026 Team",
+  "license": "ISC"
+}

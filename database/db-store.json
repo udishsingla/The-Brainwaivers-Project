@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "student.test@gmail.com",
+      "password": "password123",
+      "fullName": "Rahul Verma",
+      "phone": "+91 98111 22334",
+      "userType": "STUDENT"
+    },
+    {
+      "id": 2,
+      "email": "faculty.rep@gmail.com",
+      "password": "password123",
+      "fullName": "Dr. Rajesh Sharma",
+      "phone": "+91 98222 33445",
+      "userType": "FACULTY"
+    },
+    {
+      "id": 3,
+      "email": "parent.ananya@gmail.com",
+      "password": "password123",
+      "fullName": "Ananya Deshmukh",
+      "phone": "+91 98333 44556",
+      "userType": "PARENT"
+    },
+    {
+      "id": 4,
+      "email": "udishsingla@gmail.com",
+      "password": "udishsingla@47451",
+      "fullName": "udish singla",
+      "phone": "9877047451",
+      "userType": "STUDENT",
+      "createdAt": "2026-10-22T23:31:36.254Z"
+    },
+    {
+      "id": 5,
+      "email": "simran.kaur@gmail.com",
+      "password": "securePassword@123",
+      "fullName": "Simran Kaur",
+      "phone": "+91 98888 77665",
+      "userType": "STUDENT",
+      "createdAt": "2026-10-23T00:48:43.210Z"
+    },
+    {
+      "id": 6,
+      "email": "shaurya@gmail.com",
+      "password": "shaurya@123",
+      "fullName": "shaurya",
+      "phone": "+91 98111 22335",
+      "userType": "STUDENT",
+      "createdAt": "2026-10-23T17:05:13.614Z"
+    },
+    {
+      "id": 7,
+      "email": "rohan@gmail.com",
+      "password": "rohan@123",
+      "fullName": "rohan",
+      "phone": "+91 98111 22334",
+      "userType": "STUDENT",
+      "createdAt": "2026-10-23T17:18:53.501Z"
+    }
+  ],
+  "complaints": [
+    
+    
+  ]
+}

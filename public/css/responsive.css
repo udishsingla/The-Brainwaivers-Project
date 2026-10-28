@@ -1,0 +1,181 @@
+/**
+ * =========================================================================
+ * ALL INDIA COUNCIL FOR TECHNICAL EDUCATION (AICTE)
+ * Responsive Media Queries & Mobile Adaptation (SIH 2026)
+ * Strict Zero Horizontal Overflow & Touch Optimization
+ * =========================================================================
+ */
+
+/* Laptops & Medium Screens */
+@media (max-width: 1200px) {
+    .app-container {
+        padding: 20px 24px 36px;
+    }
+
+    .dual-portal-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .simulator-telemetry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .overlap-matrix-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .citizen-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablets & Small Screens */
+@media (max-width: 868px) {
+    .top-gov-bar {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+        padding: 8px 16px;
+    }
+
+    .main-header {
+        padding: 0 16px;
+        height: auto;
+        min-height: 64px;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .brand-title {
+        font-size: 16px;
+    }
+
+    .brand-subtitle {
+        font-size: 10px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .portal-switcher {
+        width: 100%;
+    }
+
+    .portal-switch-btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .gateway-hero {
+        padding: 28px 20px;
+    }
+
+    .gateway-hero h1 {
+        font-size: 26px;
+    }
+
+    .gateway-hero p {
+        font-size: 14px;
+    }
+
+    .dashboard-nav-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .tab-btn-group {
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-btn {
+        font-size: 12px;
+        padding: 7px 12px;
+        white-space: nowrap;
+    }
+
+    .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box-wrap {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .select-field {
+        width: 100%;
+    }
+
+    .overlap-alert-banner {
+        flex-direction: column;
+        padding: 16px;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 540px) {
+    body {
+        font-size: 14px;
+    }
+
+    .app-container {
+        padding: 14px 12px 28px;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .simulator-telemetry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .telemetry-val {
+        font-size: 22px;
+    }
+
+    .simulator-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .modal-window {
+        padding: 0;
+        border-radius: var(--radius-md);
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 16px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+}
+
+/* Universal Zero-Horizontal-Scroll Enforcers */
+img, svg, video, canvas, audio, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
+}
+
+table {
+    max-width: 100%;
+}

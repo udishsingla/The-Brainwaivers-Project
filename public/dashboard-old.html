@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AICTE Integrated Institution Complaint Monitoring & Overlap Redressal Portal</title>
+    <meta name="description" content="Centralized single-window dashboard for monitoring institution complaints, detecting cross-bureau overlaps between RB and PGRC, and ensuring timely grievance disposal.">
+    
+    <!-- Design & Styling -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- TOP GOVERNMENT IDENTIFIER STRIP -->
+    <div class="gov-flag-strip">
+        <div class="flag-orange"></div>
+        <div class="flag-white"></div>
+        <div class="flag-green"></div>
+    </div>
+    <div class="top-gov-bar">
+        <div class="gov-emblem-text">
+            <span>GOVERNMENT OF INDIA</span>
+            <span>&bull;</span>
+            <span>MINISTRY OF EDUCATION</span>
+            <span>&bull;</span>
+            <span>AICTE STATUTORY PORTAL</span>
+        </div>
+        <div style="font-size: 11px; color: #94A3B8;">
+            Smart India Hackathon (SIH) 2026 Edition | PRAGATI-AICTE 2.0
+        </div>
+    </div>
+
+    <!-- MAIN APP HEADER -->
+    <header class="main-header">
+        <div class="brand-section">
+            <div class="brand-emblem-box" data-icon="shield"></div>
+            <div>
+                <h1 class="brand-title">AICTE SAMADHAN &bull; MONITORING DASHBOARD</h1>
+                <div class="brand-subtitle">Integrated Institution Grievance & Cross-Bureau Overlap System</div>
+            </div>
+        </div>
+
+        <!-- PORTAL SWITCHER & AUTH STATUS -->
+        <div class="header-actions">
+            <div class="portal-switcher">
+                <button class="portal-switch-btn active" id="btnNavGateway">
+                    <span data-icon="dashboard"></span> Portal Gateway
+                </button>
+                <button class="portal-switch-btn" id="btnNavCitizen">
+                    <span data-icon="user"></span> Citizen Portal
+                </button>
+                <button class="portal-switch-btn" id="btnNavSolver">
+                    <span data-icon="lock"></span> AICTE Official Portal
+                </button>
+            </div>
+
+            <!-- Header Auth Box -->
+            <div id="authStatusBox"></div>
+        </div>
+    </header>
+
+    <!-- MAIN WRAPPER CONTAINER -->
+    <main class="app-container">
+
+        <!-- REAL-TIME CROSS-BUREAU OVERLAP ALERT BANNER (GLOBAL) -->
+        <div id="overlapBannerContainer" style="display: none;"></div>
+
+        <!-- ===================================================================
+             1. GATEWAY VIEW (DUAL WINDOW LAUNCHPAD)
+             =================================================================== -->
+        <section class="portal-view active" id="viewGateway">
+            <div class="gateway-hero">
+                <div class="gateway-badge">
+                    <span data-icon="activity"></span>
+                    <span>AICTE Regulatory Transparency & Inter-Cell Coordination Framework</span>
+                </div>
+                <h1>Integrated Institution Complaint Monitoring & Cross-Bureau Redressal Dashboard</h1>
+                <p>
+                    A single-window, real-time mechanism eliminating jurisdictional duplication between the <strong>Regulation Bureau (RB)</strong>, <strong>Public Grievance Redressal Cell (PGRC)</strong>, and Regional Offices. Built with algorithmic cross-bureau overlap detection, Bloom Filter deduplication, and high-concurrency ingestion.
+                </p>
+
+                <!-- DUAL PORTAL CARDS -->
+                <div class="dual-portal-grid">
+                    <!-- Citizen Card -->
+                    <div class="portal-entry-card">
+                        <div>
+                            <div class="portal-card-header">
+                                <div class="portal-card-icon citizen" data-icon="user"></div>
+                                <div>
+                                    <h3>Citizen & Complainant Portal</h3>
+                                    <div style="font-size: 12px; color: #6EE7B7; font-weight: 600;">Students, Faculty, Parents & Stakeholders</div>
+                                </div>
+                            </div>
+                            <p>
+                                Lodge grievances against technical institutions with instant AICTE Permanent ID verification. Live chronological status tracking with statutory 30-day SLA countdown and downloadable acknowledgment slips.
+                            </p>
+                            <ul class="portal-features-list">
+                                <li><span data-icon="checkCircle"></span> Instant AICTE Institution auto-lookup & dossier generation</li>
+                                <li><span data-icon="checkCircle"></span> Validated registration with Gmail/Email authentication</li>
+                                <li><span data-icon="checkCircle"></span> Step-by-step resolution tracking & disposal transparency</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary" id="btnEnterCitizen" style="width: 100%;">
+                            <span>Access Citizen Grievance Portal</span>
+                            <span data-icon="arrowRight"></span>
+                        </button>
+                    </div>
+
+                    <!-- Officer Card -->
+                    <div class="portal-entry-card">
+                        <div>
+                            <div class="portal-card-header">
+                                <div class="portal-card-icon solver" data-icon="lock"></div>
+                                <div>
+                                    <h3>Authorized AICTE Officer Portal</h3>
+                                    <div style="font-size: 12px; color: #FCD34D; font-weight: 600;">Regulation Bureau, PGRC, Legal & Regional Officers</div>
+                                </div>
+                            </div>
+                            <p>
+                                Restricted regulatory portal for authorized decision makers. Visualizes multi-cell workload, flags overlapping cases concerning the same institution, and facilitates synchronized joint investigations.
+                            </p>
+                            <ul class="portal-features-list">
+                                <li><span data-icon="checkCircle"></span> Cross-Bureau Overlap Matrix (RB + PGRC parallel case sync)</li>
+                                <li><span data-icon="checkCircle"></span> Probabilistic Bloom Filter deduplication engine</li>
+                                <li><span data-icon="checkCircle"></span> 10,000 synthetic request high-concurrency stress testing suite</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-amber" id="btnEnterSolver" style="width: 100%;">
+                            <span>Officer Secure Login & Case Console</span>
+                            <span data-icon="arrowRight"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUICK SUMMARY STATS -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Total Cases Ingested</span>
+                        <div class="kpi-icon-wrap primary" data-icon="database"></div>
+                    </div>
+                    <div class="kpi-value" id="kpiTotalVal">0</div>
+                    <div class="kpi-footer">Across all AICTE Bureaus & Cells</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Cross-Bureau Overlaps</span>
+                        <div class="kpi-icon-wrap warning" data-icon="overlapAlert"></div>
+                    </div>
+                    <div class="kpi-value" id="kpiOverlapsVal" style="color: var(--color-warning);">0</div>
+                    <div class="kpi-footer">Active multi-cell coordination alerts</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Under Investigation</span>
+                        <div class="kpi-icon-wrap process" data-icon="scale"></div>
+                    </div>
+                    <div class="kpi-value" id="kpiProcessVal">0</div>
+                    <div class="kpi-footer">Active inquiries & notice proceedings</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-label">Resolved & Disposed</span>
+                        <div class="kpi-icon-wrap success" data-icon="checkCircle"></div>
+                    </div>
+                    <div class="kpi-value" id="kpiDisposedVal">0</div>
+                    <div class="kpi-footer">Compliance validated & closed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             2. CITIZEN / COMPLAINANT PORTAL
+             =================================================================== -->
+        <section class="portal-view" id="viewCitizen">
+            <div style="margin-bottom: 24px;">
+                <h2>Citizen Grievance Redressal & Status Tracking</h2>
+                <p>Lodge new complaints against AICTE approved technical colleges and track your cases live with complete statutory SLA visibility.</p>
+            </div>
+
+            <div class="citizen-layout">
+                <!-- Left: Lodge New Grievance -->
+                <div class="lodge-card">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px; border-bottom: 1px solid var(--border-light); padding-bottom: 12px;">
+                        <span data-icon="plus" style="color: var(--color-primary);"></span>
+                        <h3 style="font-size: 17px;">Lodge New Grievance</h3>
+                    </div>
+
+                    <form id="formLodgeGrievance">
+                        <div class="form-group">
+                            <label class="form-label" for="complaintInstitutionSelect">Technical Institution *</label>
+                            <select class="form-control select-field" id="complaintInstitutionSelect" required>
+                                <option value="" disabled selected>Loading Institutions...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintPidInput">AICTE Permanent ID</label>
+                            <input type="text" class="form-control" id="complaintPidInput" placeholder="Auto-populated AICTE ID" readonly style="background: #F8FAFC; font-family: monospace;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintCategorySelect">Category of Complaint *</label>
+                            <select class="form-control select-field" id="complaintCategorySelect" required>
+                                <option value="" disabled selected>Loading Categories...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintPrioritySelect">Severity Level *</label>
+                            <select class="form-control select-field" id="complaintPrioritySelect">
+                                <option value="HIGH" selected>High (Standard Regulatory Review)</option>
+                                <option value="CRITICAL">Critical (Immediate Show-Cause / Spot Inquiry)</option>
+                                <option value="MEDIUM">Medium (General Stakeholder Query)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintSubjectInput">Subject / Summary *</label>
+                            <input type="text" class="form-control" id="complaintSubjectInput" placeholder="Brief subject line (e.g. Non-refund of tuition fees)" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintDescriptionInput">Detailed Facts & Description *</label>
+                            <textarea class="form-control" id="complaintDescriptionInput" placeholder="Provide complete facts, dates, semester, and supporting reference numbers..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <span data-icon="plus"></span>
+                            <span>Submit Grievance to AICTE</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: My Grievances Live Tracker -->
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                        <h3 style="font-size: 18px;">My Submitted Grievances & Live Timeline</h3>
+                        <span style="font-size: 12px; color: var(--text-muted);">Real-Time Audit Synchronization Active</span>
+                    </div>
+
+                    <div id="citizenMyGrievancesList">
+                        <!-- Dynamic Grievance Cards rendered via app.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             3. AICTE OFFICER / SOLVER PORTAL
+             =================================================================== -->
+        <section class="portal-view" id="viewSolver">
+            <!-- Officer Navigation Bar -->
+            <div class="dashboard-nav-bar">
+                <div class="tab-btn-group">
+                    <button class="tab-btn officer-tab-btn active" data-tab="OVERVIEW">
+                        <span data-icon="dashboard"></span> Master Case Console
+                    </button>
+                    <button class="tab-btn officer-tab-btn" data-tab="OVERLAPS">
+                        <span data-icon="overlapAlert"></span> Cross-Bureau Overlap Matrix
+                    </button>
+                    <button class="tab-btn officer-tab-btn" data-tab="SIMULATOR">
+                        <span data-icon="cpu"></span> 10,000 Req Scale Simulator
+                    </button>
+                    <button class="tab-btn officer-tab-btn" data-tab="REPORTS">
+                        <span data-icon="fileText"></span> Bureau Analytics & SLA
+                    </button>
+                </div>
+
+                <!-- Active Officer Display -->
+                <div class="officer-profile-chip" id="officerProfileDisplay">
+                    <div class="officer-badge-info">
+                        <div class="officer-name" id="officerHeaderName">Er. Udish Singla</div>
+                        <div class="officer-role-cell" id="officerHeaderRole">Member Secretary & CAO (Regulation Bureau)</div>
+                    </div>
+                    <div style="width: 36px; height: 36px; border-radius: 50%; background: #DBEAFE; color: #1E40AF; display: flex; align-items: center; justify-content: center;" data-icon="user"></div>
+                </div>
+            </div>
+
+            <!-- SUBVIEW A: MASTER CASE CONSOLE -->
+            <div class="officer-subview active" data-subview="OVERVIEW">
+                <!-- Search & Filters Control Bar -->
+                <div class="controls-bar">
+                    <div class="search-box-wrap">
+                        <span data-icon="search"></span>
+                        <input type="text" class="input-field" id="complaintSearchInput" placeholder="Search by Institution, AICTE Permanent ID, Case ID, Category...">
+                    </div>
+
+                    <select class="select-field" id="filterStatusSelect">
+                        <option value="ALL">All Statuses (Pending, Under Process, Disposed...)</option>
+                        <option value="PENDING">Pending Initial Scrutiny</option>
+                        <option value="UNDER_PROCESS">Under Process / Notice Issued</option>
+                        <option value="ESCALATED">Escalated / SLA Overdue</option>
+                        <option value="DISPOSED">Disposed & Closed</option>
+                    </select>
+
+                    <select class="select-field" id="filterBureauSelect">
+                        <option value="ALL">All AICTE Bureaus / Cells</option>
+                        <option value="Regulation Bureau (RB)">Regulation Bureau (RB)</option>
+                        <option value="Public Grievance Redressal Cell (PGRC)">Public Grievance Redressal Cell (PGRC)</option>
+                        <option value="Legal & Compliance Cell">Legal & Compliance Cell</option>
+                        <option value="Northern Regional Office (NRO)">Northern Regional Office (NRO)</option>
+                        <option value="Appellate Authority / Grievance Oversight">Appellate Authority / Grievance Oversight</option>
+                    </select>
+                </div>
+
+                <!-- Case List Table -->
+                <div class="table-card">
+                    <div class="table-header-bar">
+                        <div class="table-title">Institution Grievance Registry & Cross-Cell Tracking</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">
+                            Rows highlighted in amber indicate detected cross-bureau overlap
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Case ID & Date</th>
+                                    <th>Institution & AICTE ID</th>
+                                    <th>Category</th>
+                                    <th>Assigned Bureau</th>
+                                    <th>Status</th>
+                                    <th>Assigned Officer</th>
+                                    <th>SLA Countdown</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="complaintsTableBody">
+                                <!-- Dynamic Rows rendered via app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBVIEW B: CROSS-BUREAU OVERLAP MATRIX -->
+            <div class="officer-subview" data-subview="OVERLAPS" style="display: none;">
+                <div style="margin-bottom: 20px;">
+                    <h3>Cross-Bureau Overlap Detection & Joint Coordination Matrix</h3>
+                    <p>Institutions with simultaneous active cases spanning Regulation Bureau (RB), PGRC, Legal Cell, or Regional Offices. Prevents parallel duplicate inquiries and conflicting orders.</p>
+                </div>
+
+                <div class="overlap-matrix-grid" id="overlapMatrixGrid">
+                    <!-- Dynamic Overlap Cards rendered via app.js -->
+                </div>
+            </div>
+
+            <!-- SUBVIEW C: 10,000 REQUESTS SCALE SIMULATOR -->
+            <div class="officer-subview" data-subview="SIMULATOR" style="display: none;">
+                <div class="simulator-panel">
+                    <div class="simulator-header">
+                        <div class="simulator-title-group">
+                            <h2>High-Concurrency Scale & Stress Benchmark Suite</h2>
+                            <p>Simulate 10,000 simultaneous grievance ingestion payloads testing Bloom Filter deduplication, B-Tree database indexing, and auto-scaling worker nodes.</p>
+                        </div>
+                        <button class="btn btn-amber" id="btnStart10kSim">
+                            <span data-icon="cpu"></span> Run 10,000 Request Stress Test
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-track">
+                        <div class="progress-fill" id="simProgressFill"></div>
+                    </div>
+
+                    <!-- Telemetry Metrics Grid -->
+                    <div class="simulator-telemetry-grid">
+                        <div class="telemetry-card">
+                            <div class="telemetry-label">Ingestion Progress</div>
+                            <div class="telemetry-val" id="simProcessedCount">0 / 10,000</div>
+                            <div class="telemetry-sub">Batch pipeline stream</div>
+                        </div>
+
+                        <div class="telemetry-card">
+                            <div class="telemetry-label">Ingestion Throughput</div>
+                            <div class="telemetry-val" id="simThroughputVal">-- req/s</div>
+                            <div class="telemetry-sub">High-efficiency non-blocking I/O</div>
+                        </div>
+
+                        <div class="telemetry-card">
+                            <div class="telemetry-label">Bloom Filter Bit Utilization</div>
+                            <div class="telemetry-val" id="simBloomBitsVal">0 (0.00%)</div>
+                            <div class="telemetry-sub">131,072 bit array with 4 hash functions</div>
+                        </div>
+
+                        <div class="telemetry-card">
+                            <div class="telemetry-label">Cluster Worker Replicas</div>
+                            <div class="telemetry-val" id="simNodesVal">1 Active Replica</div>
+                            <div class="telemetry-sub">Auto-scales to 4 nodes at peak load</div>
+                        </div>
+                    </div>
+
+                    <!-- Bloom Filter Architectural Explainer -->
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 18px;">
+                        <h4 style="color: #FFFFFF; font-size: 14px; margin-bottom: 6px;">Algorithmic Innovation: Bloom Filter Pre-Filtering Architecture</h4>
+                        <p style="color: #CBD5E1; font-size: 12px; line-height: 1.5;">
+                            Every incoming complaint signature is hashed using 4 independent mathematical functions (FNV-1a, DJB2, SDBM, and Murmur-variant) into a compact 16 KB bit array. If the Bloom filter yields <code>false</code>, the system guarantees zero overlap exists in O(1) time without triggering heavy SQL table join scans, saving up to 92% relational database read IOPS during peak nationwide admission cycles.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBVIEW D: REPORTS & ANALYTICS -->
+            <div class="officer-subview" data-subview="REPORTS" style="display: none;">
+                <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h3>Bureau Workload & Statutory SLA Compliance Analytics</h3>
+                            <p style="font-size: 13px;">Consolidated performance metrics across Regulation Bureau, PGRC, and Regional Directorates.</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="window.print()">
+                            <span data-icon="download"></span> Export Executive Report
+                        </button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 18px;">
+                            <div style="font-weight: 700; color: var(--color-primary-dark); margin-bottom: 12px;">Bureau-Wise Workload Distribution</div>
+                            <div style="font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Regulation Bureau (RB)</span>
+                                    <strong>42% of active cases</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Public Grievance Redressal (PGRC)</span>
+                                    <strong>38% of active cases</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Legal & Compliance Cell</span>
+                                    <strong>12% of active cases</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Regional Offices (NRO/WRO/SRO)</span>
+                                    <strong>8% of active cases</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 18px;">
+                            <div style="font-weight: 700; color: var(--color-primary-dark); margin-bottom: 12px;">Mandatory SLA Ageing Analysis</div>
+                            <div style="font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Under 10 Days</span>
+                                    <strong style="color: var(--color-success);">64% (Healthy)</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>10 to 25 Days</span>
+                                    <strong style="color: var(--color-warning);">24% (Active Scrutiny)</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Beyond 30 Days (Breached)</span>
+                                    <strong style="color: var(--color-danger);">12% (Escalated to Ombudsman)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===================================================================
+         MODALS & OVERLAYS
+         =================================================================== -->
+
+    <!-- 1. CITIZEN AUTHENTICATION MODAL (LOGIN & REGISTRATION) -->
+    <div class="modal-overlay" id="modalCitizenAuth">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="citizenAuthTitle">Citizen Portal Access</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Registration & Authentication with Email/Gmail</div>
+                </div>
+                <button class="modal-close-btn modal-close-trigger">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Mode Toggle -->
+                <div style="display: flex; background: var(--bg-surface); padding: 4px; border-radius: var(--radius-full); margin-bottom: 20px;">
+                    <button type="button" class="btn btn-sm" id="btnToggleCitizenLogin" style="flex: 1; background: var(--color-primary); color: #fff; border-radius: var(--radius-full);">Sign In</button>
+                    <button type="button" class="btn btn-sm" id="btnToggleCitizenRegister" style="flex: 1; background: transparent; color: var(--text-secondary); border-radius: var(--radius-full);">Create New Account</button>
+                </div>
+
+                <form id="citizenAuthForm">
+                    <input type="hidden" id="citizenAuthModeInput" value="LOGIN">
+
+                    <div class="form-group" id="groupCitizenName" style="display: none;">
+                        <label class="form-label" for="citizenNameInput">Full Name *</label>
+                        <input type="text" class="form-control" id="citizenNameInput" placeholder="Enter your full legal name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="citizenEmailInput">Email Address / Gmail ID *</label>
+                        <input type="email" class="form-control" id="citizenEmailInput" placeholder="e.g. yourname@gmail.com" required>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
+                            The system verifies whether your account exists before granting access.
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="groupCitizenPhone" style="display: none;">
+                        <label class="form-label" for="citizenPhoneInput">Mobile Number *</label>
+                        <input type="tel" class="form-control" id="citizenPhoneInput" placeholder="+91 98765 43210">
+                    </div>
+
+                    <div class="form-group" id="groupCitizenType" style="display: none;">
+                        <label class="form-label" for="citizenTypeSelect">Stakeholder Category *</label>
+                        <select class="form-control select-field" id="citizenTypeSelect">
+                            <option value="STUDENT">Enrolled Student</option>
+                            <option value="FACULTY">Faculty Member / Teaching Staff</option>
+                            <option value="PARENT">Parent / Legal Guardian</option>
+                            <option value="CITIZEN">General Citizen / Whistleblower</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="citizenPasswordInput">Password *</label>
+                        <input type="password" class="form-control" id="citizenPasswordInput" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btnCitizenAuthSubmit" style="width: 100%; margin-top: 10px;">
+                        <span data-icon="user"></span>
+                        <span id="txtCitizenAuthSubmit">Sign In to Citizen Portal</span>
+                    </button>
+                </form>
+
+                <!-- Quick Test Citizen Hint -->
+                <div style="margin-top: 16px; font-size: 12px; color: var(--text-muted); background: #F8FAFC; padding: 10px; border-radius: var(--radius-sm);">
+                    <strong>Pre-registered Demo Citizen:</strong><br>
+                    Email: <code>student.test@gmail.com</code> | Password: <code>password123</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. SOLVER AUTHENTICATION MODAL (OFFICIAL LOGIN ONLY) -->
+    <div class="modal-overlay" id="modalSolverAuth">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title">AICTE Official Authentication</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Restricted to Authorized Redressal Solvers</div>
+                </div>
+                <button class="modal-close-btn modal-close-trigger">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="solverAuthForm">
+                    <div class="form-group">
+                        <label class="form-label" for="solverEmailInput">Authorized Officer Email *</label>
+                        <input type="email" class="form-control" id="solverEmailInput" placeholder="e.g. usingla_be26@thapar.edu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="solverPassInput">Security Password *</label>
+                        <input type="password" class="form-control" id="solverPassInput" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-amber" style="width: 100%;">
+                        <span data-icon="lock"></span>
+                        <span>Verify Credentials & Enter Console</span>
+                    </button>
+                </form>
+
+                <!-- 1-Click Authorized Solver Switcher for Presentation & Testing -->
+                <div style="margin-top: 20px; border-top: 1px solid var(--border-light); padding-top: 14px;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">
+                        Quick Select Authorized Solvers (Click to Auto-fill):
+                    </div>
+                    <div class="solver-chips-container">
+                        <div class="solver-chip-item" data-email="usingla_be26@thapar.edu" data-pass="udishsingla">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">usingla_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Er. Udish Singla &bull; Member Secretary & CAO (Regulation Bureau)</div>
+                            </div>
+                            <span class="badge badge-warning">Master Admin</span>
+                        </div>
+
+                        <div class="solver-chip-item" data-email="mmskunjal_be26@thapar.edu" data-pass="kunjalsingla">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">mmskunjal_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Ms. Kunjal Singla &bull; Director (PGRC Grievance Cell)</div>
+                            </div>
+                            <span class="badge badge-process">PGRC Head</span>
+                        </div>
+
+                        <div class="solver-chip-item" data-email="dbansal_be26@thapar.edu" data-pass="dharuvbansal">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">dbansal_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Dr. Dharuv Bansal &bull; Joint Director (Regulation Bureau)</div>
+                            </div>
+                            <span class="badge badge-pending">RB Officer</span>
+                        </div>
+
+                        <div class="solver-chip-item" data-email="gparvesh_be26@thapar.edu" data-pass="parveshgarg">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">gparvesh_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Shri Parvesh Garg &bull; Regional Officer (Northern Regional Office)</div>
+                            </div>
+                            <span class="badge badge-transferred">Regional Lead</span>
+                        </div>
+
+                        <div class="solver-chip-item" data-email="iishika_be26@thapar.edu" data-pass="ishika">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">iishika_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Adv. Ishika &bull; Senior Legal Counsel (Compliance & Legal Cell)</div>
+                            </div>
+                            <span class="badge badge-escalated">Legal Head</span>
+                        </div>
+
+                        <div class="solver-chip-item" data-email="ddrishti_be26@thapar.edu" data-pass="drishti">
+                            <div class="solver-chip-info">
+                                <div class="solver-chip-email">ddrishti_be26@thapar.edu</div>
+                                <div class="solver-chip-bureau">Prof. Drishti &bull; Appellate Ombudsman (Appellate Oversight)</div>
+                            </div>
+                            <span class="badge badge-critical">Ombudsman</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. CASE DETAIL MODAL -->
+    <div class="modal-overlay" id="modalCaseDetail">
+        <div class="modal-window" style="max-width: 780px;">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="detailCaseId">AICTE/PGRC/2026/0142</div>
+                    <div style="font-size: 13px; font-weight: 600; color: var(--color-primary);" id="detailInstitution">Aryavart Institute of Technology</div>
+                </div>
+                <button class="modal-close-btn modal-close-trigger">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; background: #F8FAFC; padding: 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 13px;">
+                    <div><strong>AICTE Permanent ID:</strong> <span id="detailPid" style="font-family: monospace;"></span></div>
+                    <div><strong>Category:</strong> <span id="detailCategory"></span></div>
+                    <div><strong>Assigned Bureau:</strong> <span id="detailBureau" style="font-weight: 600;"></span></div>
+                    <div><strong>Assigned Officer:</strong> <span id="detailOfficer"></span></div>
+                    <div><strong>Status:</strong> <span id="detailStatus" style="font-weight: 700;"></span></div>
+                    <div><strong>SLA Deadline:</strong> <span id="detailSla"></span></div>
+                    <div style="grid-column: 1 / -1;"><strong>Complainant:</strong> <span id="detailComplainant"></span></div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="font-size: 14px; margin-bottom: 6px;">Subject</h4>
+                    <p style="font-size: 13px; font-weight: 600; color: var(--color-primary-dark);" id="detailSubject"></p>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <h4 style="font-size: 14px; margin-bottom: 6px;">Detailed Grievance Facts</h4>
+                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;" id="detailDescription"></p>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 14px; margin-bottom: 12px;">Chronological Action History & Inter-Bureau Trail</h4>
+                    <div class="timeline-tracker" id="detailAuditTimeline">
+                        <!-- Dynamic Timeline entries -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close-trigger">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CASE ACTION UPDATE MODAL (SOLVER) -->
+    <div class="modal-overlay" id="modalCaseAction">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title">Record Case Action & Progression</div>
+                    <div style="font-size: 12px; color: var(--text-muted);" id="actionModalCaseId">AICTE/RB/2026/0289</div>
+                </div>
+                <button class="modal-close-btn modal-close-trigger">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formUpdateCaseAction">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--color-primary-dark); margin-bottom: 16px;" id="actionModalInstName"></div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalStatusSelect">Update Case Status *</label>
+                        <select class="form-control select-field" id="actionModalStatusSelect" required>
+                            <option value="PENDING">PENDING (Awaiting Scrutiny)</option>
+                            <option value="UNDER_PROCESS">UNDER PROCESS (Inquiry Notice Dispatched)</option>
+                            <option value="ESCALATED">ESCALATED (Referred to Appellate / Standing Committee)</option>
+                            <option value="TRANSFERRED">TRANSFERRED (Jurisdiction Handed Over)</option>
+                            <option value="DISPOSED">DISPOSED (Compliance Verified & Closed)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalBureauSelect">Assigned Bureau / Cell *</label>
+                        <select class="form-control select-field" id="actionModalBureauSelect" required>
+                            <option value="Regulation Bureau (RB)">Regulation Bureau (RB)</option>
+                            <option value="Public Grievance Redressal Cell (PGRC)">Public Grievance Redressal Cell (PGRC)</option>
+                            <option value="Legal & Compliance Cell">Legal & Compliance Cell</option>
+                            <option value="Northern Regional Office (NRO)">Northern Regional Office (NRO)</option>
+                            <option value="Appellate Authority / Grievance Oversight">Appellate Authority / Grievance Oversight</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalOfficerInput">Investigating Officer Name *</label>
+                        <input type="text" class="form-control" id="actionModalOfficerInput" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalActionInput">Action Title *</label>
+                        <input type="text" class="form-control" id="actionModalActionInput" placeholder="e.g. Physical Spot Inspection Ordered" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalRemarksInput">Official Scrutiny Remarks & Directions *</label>
+                        <textarea class="form-control" id="actionModalRemarksInput" placeholder="Record findings, show-cause reference numbers, and instructions..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="actionModalNextActionInput">Next Action Required & Timeline</label>
+                        <input type="text" class="form-control" id="actionModalNextActionInput" placeholder="e.g. Management to submit compliance report within 7 days">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <span data-icon="checkCircle"></span>
+                        <span>Commit Action to Audit Trail</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- APPLICATION FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>All India Council for Technical Education (AICTE)</strong>
+                <div style="font-size: 11px; margin-top: 4px;">Nelson Mandela Marg, Vasant Kunj, New Delhi-110070</div>
+            </div>
+            <div style="font-size: 12px;">
+                SIH 2026 Problem Statement: Integrated Institution Complaint Monitoring & Overlap System
+            </div>
+            <div style="font-size: 11px; color: #64748B;">
+                Bloom Filter Deduplication &bull; MySQL & MongoDB Architecture &bull; High Concurrency Ingestion
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts (Ordered for clean dependency resolution) -->
+    <script src="js/icons.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/bloomFilter.js"></script>
+    <script src="js/overlapEngine.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/complaints.js"></script>
+    <script src="js/loadSimulator.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Inline script to toggle citizen auth mode -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnLogin = document.getElementById('btnToggleCitizenLogin');
+            var btnRegister = document.getElementById('btnToggleCitizenRegister');
+            var modeInput = document.getElementById('citizenAuthModeInput');
+            var groupName = document.getElementById('groupCitizenName');
+            var groupPhone = document.getElementById('groupCitizenPhone');
+            var groupType = document.getElementById('groupCitizenType');
+            var submitTxt = document.getElementById('txtCitizenAuthSubmit');
+
+            if (btnLogin && btnRegister) {
+                btnLogin.onclick = function() {
+                    modeInput.value = 'LOGIN';
+                    btnLogin.style.background = 'var(--color-primary)';
+                    btnLogin.style.color = '#fff';
+                    btnRegister.style.background = 'transparent';
+                    btnRegister.style.color = 'var(--text-secondary)';
+                    groupName.style.display = 'none';
+                    groupPhone.style.display = 'none';
+                    groupType.style.display = 'none';
+                    submitTxt.innerText = 'Sign In to Citizen Portal';
+                };
+
+                btnRegister.onclick = function() {
+                    modeInput.value = 'REGISTER';
+                    btnRegister.style.background = 'var(--color-primary)';
+                    btnRegister.style.color = '#fff';
+                    btnLogin.style.background = 'transparent';
+                    btnLogin.style.color = 'var(--text-secondary)';
+                    groupName.style.display = 'block';
+                    groupPhone.style.display = 'block';
+                    groupType.style.display = 'block';
+                    submitTxt.innerText = 'Register & Create Account';
+                };
+            }
+        });
+    </script>
+</body>
+</html>

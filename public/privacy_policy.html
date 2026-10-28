@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - AICTE Complaint Management Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Portal Visual Enhancements -->
+    <link rel="stylesheet" href="css/portal-enhancements.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            600: '#1e40af',
+                            700: '#1e3a8a',
+                            800: '#0f172a',
+                            900: '#0b1329',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Print Specific Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 12pt;
+            }
+            .print-full-width {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .policy-section {
+                break-inside: avoid;
+                border: 1px solid #e2e8f0 !important;
+                margin-bottom: 1.5rem !important;
+                box-shadow: none !important;
+            }
+            .accordion-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
+
+    <!-- Top Scroll Progress Bar -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- Top Announcement / Disclaimer Banner -->
+    <div class="bg-amber-500/10 border-b border-amber-500/20 text-amber-900 text-xs sm:text-sm py-2 px-4 no-print">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-amber-600 shrink-0"></i>
+                <p><strong>Notice:</strong> Statutory Privacy & DPDP Compliance Framework &bull; AICTE Integrated Grievance Portal &bull; SIH 2026</p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-amber-700 hover:text-amber-900 shrink-0">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header / Branding -->
+    <header class="bg-brand-900 text-white shadow-lg sticky top-0 z-40 border-b border-brand-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-md border border-white/10">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-slate-300 font-medium">Official Portal Governance</span>
+                    <h1 class="text-lg sm:text-xl font-heading font-bold tracking-tight text-white leading-tight">
+                        AICTE Complaint Management Portal
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center space-x-3 no-print">
+                <a href="/index.html" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium border border-slate-700 transition-all shadow-sm">
+                    <i class="fa-solid fa-right-to-bracket text-cyan-400"></i>
+                    <span class="hidden sm:inline">Sign In / Register</span>
+                </a>
+                <a href="/user.html" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium border border-slate-700 transition-all shadow-sm">
+                    <i class="fa-solid fa-user-graduate text-indigo-400"></i>
+                    <span class="hidden sm:inline">Citizen Portal</span>
+                </a>
+                <button onclick="window.print()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium border border-slate-700 transition-all shadow-sm">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden sm:inline">Print Policy</span>
+                </button>
+                <a href="#contact" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-medium transition-all shadow-md shadow-blue-600/20">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="hidden sm:inline">Contact Support</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title & Meta Section -->
+    <section class="bg-brand-800 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-shield-halved"></i> Data Protection & Compliance
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+                    Privacy Policy
+                </h2>
+                <p class="mt-2 text-slate-300 max-w-2xl text-sm sm:text-base">
+                    Transparency regarding how we handle, process, and protect your personal information on the AICTE Complaint Management Portal.
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-slate-900/60 backdrop-blur border border-slate-700 p-3.5 rounded-xl">
+                <div class="w-10 h-10 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                    <i class="fa-regular fa-calendar-check text-lg"></i>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-400 uppercase tracking-wider font-medium">Last Updated</div>
+                    <div class="text-sm font-semibold text-white">27 October 2026</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- Search Bar -->
+        <div class="mb-8 no-print">
+            <div class="relative max-w-xl">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="searchInput" onkeyup="filterSections()" placeholder="Search in Privacy Policy (e.g., cookies, rights, data retention)..." class="w-full pl-11 pr-10 py-3 bg-white border border-slate-200 rounded-xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all">
+                <button id="clearSearch" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 print-full-width">
+
+            <!-- Sidebar / Table of Contents -->
+            <aside class="lg:col-span-4 xl:col-span-3 no-print">
+                <div class="sticky top-28 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h3 class="font-heading font-bold text-slate-900 text-sm tracking-wide uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-list-ul text-blue-600"></i> Table of Contents
+                        </h3>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">14 Sections</span>
+                    </div>
+
+                    <nav class="space-y-1 text-xs sm:text-sm">
+                        <a href="#sec-1" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">1. Introduction</a>
+                        <a href="#sec-2" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">2. Information We Collect</a>
+                        <a href="#sec-3" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">3. Purpose of Data Collection</a>
+                        <a href="#sec-4" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">4. Complaint Assignment & Access</a>
+                        <a href="#sec-5" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">5. Sharing and Disclosure</a>
+                        <a href="#sec-6" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">6. Data Security & Confidentiality</a>
+                        <a href="#sec-7" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">7. Data Retention & Deletion</a>
+                        <a href="#sec-8" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">8. Cookies & Session Control</a>
+                        <a href="#sec-9" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">9. User Rights & Requests</a>
+                        <a href="#sec-10" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">10. Third-Party Services</a>
+                        <a href="#sec-11" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">11. Children's Privacy</a>
+                        <a href="#sec-12" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">12. Changes to This Policy</a>
+                        <a href="#sec-13" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">13. Contact & Grievance</a>
+                        <a href="#sec-14" class="toc-link block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 font-medium transition-all">14. Applicable Laws</a>
+                    </nav>
+
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <button onclick="expandAllSections()" class="hover:text-blue-600 underline font-medium">Expand All</button>
+                        <span>•</span>
+                        <button onclick="collapseAllSections()" class="hover:text-blue-600 underline font-medium">Collapse All</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Policy Text Content -->
+            <div class="lg:col-span-8 xl:col-span-9 space-y-6 print-full-width">
+                
+                <!-- Section 1 -->
+                <section id="sec-1" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-1-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">1</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">1. Introduction</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-1-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-1-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            Welcome to the <strong>AICTE Complaint Management Portal</strong> (“Portal”). The Portal is designed to facilitate the secure submission, assignment, monitoring and resolution of complaints submitted by students, faculty members, educational institutions and other stakeholders.
+                        </p>
+                        <p>
+                            This Privacy Policy explains how personal information is collected, used, stored, processed and shared when users access the Portal and its services.
+                        </p>
+                        <p>
+                            The Portal aims to handle personal information responsibly, maintain confidentiality and restrict access to authorised personnel in accordance with applicable laws and policies.
+                        </p>
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-amber-950 flex items-start gap-3">
+                            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 text-lg shrink-0"></i>
+                            <div>
+                                <strong class="font-semibold block text-amber-900 mb-0.5">Note:</strong>
+                                If this website is a prototype or independently developed project, it must not be represented as an officially operated or approved AICTE service without authorisation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2 -->
+                <section id="sec-2" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-2-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">2</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">2. Information We Collect</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-2-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-2-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-6 text-slate-600 text-sm leading-relaxed">
+                        <p>Depending on the features used, the Portal may collect the following categories of information:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                <div class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-id-card text-blue-600"></i> 2.1 Personal & Account
+                                </div>
+                                <ul class="space-y-1.5 text-slate-600 text-xs">
+                                    <li>• Full name</li>
+                                    <li>• Email address</li>
+                                    <li>• Mobile number (if provided)</li>
+                                    <li>• Login credentials & auth data</li>
+                                    <li>• Role, institution or department</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                <div class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-folder-open text-blue-600"></i> 2.2 Complaint Information
+                                </div>
+                                <ul class="space-y-1.5 text-slate-600 text-xs">
+                                    <li>• Title, category & description</li>
+                                    <li>• Relevant bureau or department</li>
+                                    <li>• Reference number & status</li>
+                                    <li>• Submission date & logs</li>
+                                    <li>• Communication records</li>
+                                    <li>• Uploaded attachments</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                <div class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-desktop text-blue-600"></i> 2.3 Technical Data
+                                </div>
+                                <ul class="space-y-1.5 text-slate-600 text-xs">
+                                    <li>• IP address</li>
+                                    <li>• Browser type & version</li>
+                                    <li>• Access timestamps</li>
+                                    <li>• System server logs</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-4 text-blue-900 flex items-start gap-3 text-xs sm:text-sm">
+                            <i class="fa-solid fa-shield-cat text-blue-600 text-base mt-0.5 shrink-0"></i>
+                            <p>
+                                <strong>Important Recommendation:</strong> Users should avoid including unnecessary personal, financial, or highly sensitive confidential information in complaint descriptions or supporting attachments.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3 -->
+                <section id="sec-3" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-3-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">3</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">3. Purpose of Data Collection</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-3-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-3-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>Information collected through the Portal may be used to:</p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Register and authenticate users securely.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Receive and systematically record complaints.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Categorise and route complaints to appropriate bureaus.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Enable authorised officers to review and resolve grievances.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Provide complaint reference numbers and status updates.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Communicate requests for additional information.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Detect fraudulent submissions and unauthorized access.</span>
+                            </li>
+                            <li class="flex items-start gap-2 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 shrink-0"></i>
+                                <span>Generate aggregated processing and trend reports.</span>
+                            </li>
+                        </ul>
+                        <p class="text-xs text-slate-500 italic mt-2">
+                            Personal information should not be used for unrelated purposes unless permitted or required under applicable law.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 4 -->
+                <section id="sec-4" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-4-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">4</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">4. Complaint Assignment and Bureau Access</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-4-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-4-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            The Portal assigns complaints to relevant bureaus, departments, or authorised officials according to category, subject matter, and administrative responsibilities. Access is strictly role-based:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3">
+                            <div class="p-4 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white">
+                                <div class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-graduate text-blue-600"></i> Complainants
+                                </div>
+                                <p class="text-xs text-slate-600">May access their own complaints and permitted status information.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white">
+                                <div class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-gear text-blue-600"></i> Bureau Officers
+                                </div>
+                                <p class="text-xs text-slate-600">May access complaints assigned to their bureau or role.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white">
+                                <div class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-check text-blue-600"></i> Supervisors
+                                </div>
+                                <p class="text-xs text-slate-600">May review records and progress within their administrative scope.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white">
+                                <div class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-shield text-blue-600"></i> Portal Administrators
+                                </div>
+                                <p class="text-xs text-slate-600">May access information necessary to maintain the system under strict controls.</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Complaint information must not be disclosed to unauthorised users. Any interdepartmental transfer is strictly limited to information necessary for handling the complaint.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 5 -->
+                <section id="sec-5" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-5-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">5</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">5. Sharing and Disclosure of Information</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-5-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-5-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <div class="bg-slate-900 text-white p-4 rounded-xl flex items-center justify-between font-medium text-xs sm:text-sm">
+                            <span><i class="fa-solid fa-ban text-red-400 mr-2"></i> No Commercial Exploitation</span>
+                            <span class="text-slate-400 font-normal">We do not sell data for advertising</span>
+                        </div>
+                        <p>Information may be shared, where necessary and legally permitted, exclusively with:</p>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-600 text-sm">
+                            <li>The bureau or department responsible for resolving a complaint.</li>
+                            <li>Authorised supervisory or administrative officials.</li>
+                            <li>Approved technical service providers responsible for hosting, maintenance, notifications or security.</li>
+                            <li>Competent public authorities where disclosure is required or authorized by applicable law.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section 6 -->
+                <section id="sec-6" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-6-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">6</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">6. Data Security and Confidentiality</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-6-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-6-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>The Portal implements appropriate technical and organizational safeguards against unauthorized access, loss, or disclosure:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-lock text-blue-600"></i> Secure HTTPS Connections
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-key text-blue-600"></i> Password Hashing & Auth
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-user-lock text-blue-600"></i> Role-Based Access Control
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Session Protection
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-file-circle-check text-blue-600"></i> Upload & File Validation
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                <i class="fa-solid fa-list-check text-blue-600"></i> Administrative Audit Logs
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 italic">
+                            Note: No digital system can guarantee absolute security. Users should protect their login credentials and report suspected unauthorized access through designated support channels immediately.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 7 -->
+                <section id="sec-7" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-7-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">7</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">7. Data Retention and Deletion</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-7-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-7-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            Personal information and complaint records are retained only for as long as necessary to fulfil their intended purposes, meet administrative requirements, resolve pending complaints, and maintain official records.
+                        </p>
+                        <p>
+                            Retention periods are defined by the authorised data controller or responsible organization. Deletion or correction requests are evaluated in accordance with applicable legal obligations; records subject to mandatory preservation may not be deleted immediately.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 8 -->
+                <section id="sec-8" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-8-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">8</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">8. Cookies and Session Management</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-8-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-8-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            The Portal uses essential cookies or browser session storage to maintain active logins, ensure session security, and enable core navigation features.
+                        </p>
+                        <p>
+                            If analytics or non-essential tracking features are integrated in the future, their usage will be explained separately with appropriate opt-out choices. Users can manage cookies via browser preferences, though disabling essential cookies may impact Portal functions.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 9 -->
+                <section id="sec-9" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-9-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">9</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">9. User Rights and Requests</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-9-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-9-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            Subject to applicable law, users may request access to, correction of, or deletion of their personal information, or raise concerns regarding processing.
+                        </p>
+                        <p>
+                            Requests must be submitted through the Portal's designated privacy or grievance contact. Identity verification will be performed before processing any modification or disclosure request.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 10 -->
+                <section id="sec-10" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-10-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">10</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">10. Third-Party Services</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-10-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-10-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            Approved third-party service providers may be used for hosting, email delivery, authentication, or technical maintenance. Such entities process data strictly to perform assigned functions under binding confidentiality terms.
+                        </p>
+                        <p>
+                            External links on the Portal are governed by their respective privacy policies. Users should review third-party policies prior to disclosing personal data.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 11 -->
+                <section id="sec-11" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-11-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">11</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">11. Children's Privacy</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-11-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-11-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            The Portal is not intended to collect unnecessary personal information from children. Where a complaint involves a minor or a minor submits information, statutory safeguards under relevant child protection and privacy laws are applied.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 12 -->
+                <section id="sec-12" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-12-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">12</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">12. Changes to This Privacy Policy</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-12-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-12-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            This Privacy Policy may be updated to reflect changes in Portal functionality, security standards, or statutory amendments. The latest revision date is prominently displayed at the top of this page.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 13: Contact Card -->
+                <section id="sec-13" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-13-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">13</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">13. Contact and Grievance Redressal</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-13-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-13-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-6 text-slate-600 text-sm leading-relaxed">
+                        <p>For questions, privacy concerns, correction requests or grievances regarding personal information, contact the designated authority:</p>
+
+                        <!-- Highlighted Contact Card -->
+                        <div id="contact" class="bg-gradient-to-br from-slate-900 to-brand-900 text-white p-6 rounded-2xl shadow-md border border-slate-700">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-building"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400 uppercase tracking-wider">Organisation</div>
+                                            <div class="font-semibold text-slate-100 text-sm">[Insert authorised organisation name]</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-user-shield"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400 uppercase tracking-wider">Privacy / Grievance Officer</div>
+                                            <div class="font-semibold text-slate-100 text-sm">[Insert designated officer or office]</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400 uppercase tracking-wider">Email</div>
+                                            <div class="font-semibold text-slate-100 text-sm">[Insert official contact email]</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400 uppercase tracking-wider">Address</div>
+                                            <div class="font-semibold text-slate-100 text-sm">[Insert authorised office address]</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-clock"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400 uppercase tracking-wider">Support Hours</div>
+                                            <div class="font-semibold text-slate-100 text-sm">[Insert applicable support hours]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 14 -->
+                <section id="sec-14" class="policy-section bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm transition-all hover:border-slate-300 scroll-mt-28">
+                    <div class="flex items-start justify-between cursor-pointer" onclick="toggleSection('sec-14-content')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">14</span>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">14. Applicable Laws</h3>
+                        </div>
+                        <button class="text-slate-400 hover:text-slate-600 no-print">
+                            <i id="sec-14-content-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                        </button>
+                    </div>
+                    <div id="sec-14-content" class="accordion-content mt-4 pt-4 border-t border-slate-100 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <p>
+                            The handling of personal information through the Portal shall be governed by applicable laws, rules, regulations and official policies in India, including the <strong>Digital Personal Data Protection Act, 2023</strong> and applicable rules, to the extent in force and applicable to the relevant processing.
+                        </p>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs leading-relaxed">
+                            <i class="fa-solid fa-gavel mr-1.5 text-slate-500"></i>
+                            This Policy should be reviewed and approved by the responsible organisation's authorised legal, privacy and information-security personnel before deployment as an official service.
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll to top button -->
+    <button id="backToTopBtn" onclick="scrollToTop()" class="no-print fixed bottom-6 right-6 w-11 h-11 bg-brand-800 hover:bg-brand-700 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 transition-opacity duration-300 z-50">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-12 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <p class="text-slate-300 font-semibold text-sm">AICTE Complaint Management Portal</p>
+                <p class="mt-1">© 2026 AICTE Complaint Portal System. All rights reserved.</p>
+            </div>
+            <div class="flex items-center space-x-6 text-slate-400">
+                <a href="#sec-1" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#sec-13" class="hover:text-white transition-colors">Grievance Officer</a>
+                <a href="#" onclick="window.print(); return false;" class="hover:text-white transition-colors">Print Page</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Toggle Accordions
+        function toggleSection(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                if(icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('hidden');
+                if(icon) icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Expand / Collapse all
+        function expandAllSections() {
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('hidden'));
+            document.querySelectorAll('[id$="-icon"]').forEach(icon => icon.style.transform = 'rotate(0deg)');
+        }
+
+        function collapseAllSections() {
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id$="-icon"]').forEach(icon => icon.style.transform = 'rotate(180deg)');
+        }
+
+        // Filter / Search function
+        function filterSections() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const clearBtn = document.getElementById('clearSearch');
+            const sections = document.querySelectorAll('.policy-section');
+
+            if (query.trim() !== "") {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                const contentEl = section.querySelector('.accordion-content');
+                
+                if (text.includes(query)) {
+                    section.classList.remove('hidden');
+                    if (query.trim() !== "" && contentEl) {
+                        contentEl.classList.remove('hidden');
+                    }
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterSections();
+        }
+
+        // Back to top scroll button behavior
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100');
+            } else {
+                backToTopBtn.classList.remove('opacity-100');
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+
+            // TOC active link update
+            const sections = document.querySelectorAll('.policy-section');
+            const navLinks = document.querySelectorAll('.toc-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-blue-50', 'text-blue-600', 'font-semibold');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('bg-blue-50', 'text-blue-600', 'font-semibold');
+                }
+            });
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <!-- Portal Utilities -->
+    <script src="js/portal-utils.js"></script>
+</body>
+</html>

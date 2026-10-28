@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" class="palette-1 style-glass">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICTE Official Resolution Workspace & Solver Command Center</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter & JetBrains Mono & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Multi-Palette Theme Engine -->
+    <link rel="stylesheet" href="css/themes.css">
+    <!-- Visual Excellence & Interactive Utilities -->
+    <link rel="stylesheet" href="css/portal-enhancements.css">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--theme-bg, #090E17);
+            color: var(--theme-text-primary, #F8FAFC);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Solver Panel Styles */
+        .solver-panel {
+            background: rgba(19, 29, 51, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--theme-border, rgba(255, 255, 255, 0.09));
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .active-ticket-selected {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(19, 29, 51, 0.85) 100%) !important;
+            border-color: #6366F1 !important;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
+        }
+
+        .input-box {
+            background: rgba(9, 14, 23, 0.65);
+            border: 1px solid var(--theme-border, rgba(255, 255, 255, 0.09));
+            color: var(--theme-text-primary, #F8FAFC);
+            border-radius: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .input-box:focus {
+            border-color: #6366F1;
+            outline: none;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-solver {
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-solver:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-main);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366F1;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .pulse-slow {
+            animation: subtle-pulse 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-6 lg:p-8 gap-6 max-w-7xl mx-auto w-full">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-workspace" class="skip-to-content">Skip to Resolution Workspace</a>
+
+    <!-- Top Scroll Progress Bar -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- FLOATING STYLE & TOP COMMAND BAR -->
+    <div class="w-full solver-panel p-4 flex flex-wrap items-center justify-between gap-4 z-30">
+        <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white flex items-center justify-center shadow-lg">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-bold text-[var(--bright-main)] tracking-tight flex items-center gap-2 font-['Montserrat']">
+                    AICTE Official Resolution Command Center
+                    <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono font-semibold">SIH 2026 Final</span>
+                </h1>
+                <p class="text-xs text-[var(--muted-main)]">Cross-Bureau Overlap Engine & Statutory Grievance Redressal Workspace</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+            <!-- Global Site Search Trigger -->
+            <button class="btn-open-search px-3 py-1.5 rounded-xl text-xs font-semibold bg-[var(--border-main)] hover:bg-indigo-600 hover:text-white transition flex items-center gap-1.5" title="Site Search (Ctrl+K)">
+                <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
+                <span class="hidden sm:inline">Search</span>
+            </button>
+
+            <!-- Theme Switcher -->
+            <button class="p-2 rounded-xl text-xs bg-[var(--border-main)] hover:bg-indigo-600 hover:text-white transition" onclick="AICTE_UTILS.toggleLightDarkMode()" title="Toggle Theme">
+                <i class="fa-solid fa-sun theme-toggle-icon"></i>
+            </button>
+
+            <a href="/privacy_policy.html" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[var(--border-main)] hover:bg-indigo-600 hover:text-white transition">
+                <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                <span class="hidden sm:inline">Privacy Policy</span>
+            </a>
+
+            <button onclick="confirmSignOut()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 transition">
+                <i data-lucide="power" class="w-3.5 h-3.5"></i>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- SUPPORT AGENT HEADER & KPI METRICS -->
+    <header class="w-full solver-panel p-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
+        <!-- Official Identity Info -->
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white font-bold text-lg flex items-center justify-center border-2 border-white/20 font-['Montserrat'] shadow-lg">
+                    US
+                </div>
+                <span id="agent-status-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[var(--bg-main)]"></span>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h2 class="font-bold text-base text-[var(--bright-main)] font-['Montserrat']" id="solver-name-header">Er. Udish Singla</h2>
+                    <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold" id="solver-role-badge">Chief Admin</span>
+                </div>
+                <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <select id="agent-status-select" class="input-box text-xs px-2.5 py-1 text-cyan-400 font-semibold">
+                        <option value="Online">Status: Online (Active)</option>
+                        <option value="In Scrutiny Hearing">Status: In Scrutiny Hearing</option>
+                        <option value="Field Inspection">Status: Field Inspection Underway</option>
+                    </select>
+                    <span class="text-xs text-[var(--muted-main)]">&bull; Bureau: Regulation Bureau (RB)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Metrics Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 flex-1 max-w-3xl">
+            <div class="p-3.5 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] flex items-center gap-3">
+                <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-400">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider">Avg SLA</p>
+                    <p class="text-sm font-mono font-bold text-[var(--bright-main)]" id="header-sla">18 Days</p>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] flex items-center gap-3">
+                <div class="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400">
+                    <i data-lucide="inbox" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider">Open Queue</p>
+                    <p class="text-sm font-mono font-bold text-[var(--bright-main)]" id="header-open-count">5 Cases</p>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] flex items-center gap-3">
+                <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+                    <i data-lucide="check-check" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider">Disposed</p>
+                    <p class="text-sm font-mono font-bold text-emerald-400" id="header-solved-count">1 Disposed</p>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] flex items-center gap-3">
+                <div class="p-2.5 rounded-lg bg-rose-500/10 text-rose-400">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider">Overlaps</p>
+                    <p class="text-sm font-mono font-bold text-rose-400" id="header-overlap-count">2 Alerts</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CROSS-BUREAU OVERLAP ALERT BANNER (CRITICAL SIH INNOVATION) -->
+    <div id="overlap-alert-section" class="w-full p-5 rounded-2xl bg-rose-950/40 border border-rose-500/40 backdrop-blur-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="p-3 rounded-xl bg-rose-500/20 text-rose-400 shrink-0">
+                <i data-lucide="alert-triangle" class="w-7 h-7 animate-pulse"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-rose-300 flex items-center gap-2 font-['Montserrat']">
+                    CROSS-BUREAU OVERLAP DETECTED &bull; MULTI-CELL COORDINATION MANDATED
+                    <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-200">Algorithmic Alert</span>
+                </h3>
+                <p class="text-xs text-rose-200/80 mt-1" id="overlap-alert-desc">
+                    System detected multiple concurrent complaints across <strong>Regulation Bureau (RB)</strong> and <strong>Public Grievance Redressal Cell (PGRC)</strong> for <em>Aryavart Institute of Technology & Management</em>.
+                </p>
+            </div>
+        </div>
+        <button onclick="filterByOverlappingInstitute('1-3349102845')" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-lg transition shrink-0">
+            View Overlapping Dossiers
+        </button>
+    </div>
+
+    <!-- MAIN WORKSPACE GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1" id="main-workspace">
+
+        <!-- COMPLAINT QUEUE SIDEBAR (4 cols) -->
+        <aside class="lg:col-span-4 flex flex-col gap-3.5 solver-panel p-5 max-h-[850px]">
+            <div class="flex items-center justify-between pb-3 border-b border-[var(--border-main)]">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="list-filter" class="w-4 h-4 text-cyan-400"></i>
+                    <h3 class="font-bold text-sm text-[var(--bright-main)] font-['Montserrat']">Investigation Queue</h3>
+                </div>
+                <span id="queue-badge-count" class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold">0 Cases</span>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="space-y-2.5">
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-main)]"></i>
+                    <input type="text" id="queue-search" oninput="filterTickets()" placeholder="Search Reference, Institution, Subject..." class="w-full input-box pl-9 pr-3 py-2 text-xs">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="filter-priority" onchange="filterTickets()" class="input-box text-xs px-2.5 py-1.5">
+                        <option value="ALL">All Priorities</option>
+                        <option value="CRITICAL">Critical</option>
+                        <option value="HIGH">High</option>
+                        <option value="MEDIUM">Medium</option>
+                    </select>
+                    <select id="filter-bureau" onchange="filterTickets()" class="input-box text-xs px-2.5 py-1.5">
+                        <option value="ALL">All Bureaus</option>
+                        <option value="Regulation Bureau (RB)">Regulation (RB)</option>
+                        <option value="Public Grievance Redressal Cell (PGRC)">PGRC</option>
+                        <option value="Legal & Compliance Cell">Legal Cell</option>
+                        <option value="Northern Regional Office (NRO)">NRO</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Ticket Cards List -->
+            <div id="ticket-list-container" class="flex-1 overflow-y-auto space-y-2.5 pr-1 my-1">
+                <!-- Dynamically Populated -->
+            </div>
+        </aside>
+
+        <!-- SOLVER INSPECTOR & ACTION DOCKET (8 cols) -->
+        <main class="lg:col-span-8 flex flex-col gap-5">
+
+            <!-- ACTIVE TICKET HEADER -->
+            <div class="solver-panel p-6 space-y-4">
+                <div class="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-[var(--border-main)]">
+                    <div>
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <span id="active-ticket-id" class="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-[var(--border-main)] text-[var(--bright-main)]">AICTE/RB/2026/0289</span>
+                            <button onclick="AICTE_UTILS.copyToClipboard(document.getElementById('active-ticket-id').innerText, this)" class="copy-pill-btn" title="Copy ID">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <span id="active-priority-badge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">CRITICAL</span>
+                            <span id="active-bureau-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--border-main)] text-[var(--muted-main)]">Regulation Bureau (RB)</span>
+                            <span id="active-overlap-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Parallel Case in PGRC
+                            </span>
+                        </div>
+                        <h2 id="active-subject" class="text-base sm:text-lg font-bold text-[var(--bright-main)] mt-2 font-['Montserrat']">Running unapproved AI/ML B.Tech sections exceeding sanctioned intake by 120 seats</h2>
+                        <div class="flex items-center gap-2 mt-1">
+                            <p id="active-institution" class="text-xs text-cyan-400 font-semibold">Aryavart Institute of Technology & Management &bull; PID: 1-3349102845</p>
+                        </div>
+                    </div>
+
+                    <!-- SLA Countdown Banner -->
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)] border border-[var(--border-main)] text-right flex items-center gap-3">
+                        <div>
+                            <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider">SLA Target Countdown</p>
+                            <p id="active-sla-countdown" class="text-sm font-mono font-bold text-amber-400">18 Days Remaining</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[var(--border-main)] text-amber-400 pulse-slow">
+                            <i data-lucide="hourglass" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Context Metadata Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)]/40 border border-[var(--border-main)]">
+                        <p class="text-[10px] text-[var(--muted-main)] uppercase font-semibold">Complainant Name</p>
+                        <p id="active-customer-name" class="font-semibold text-[var(--bright-main)] mt-0.5">Whistleblower Stakeholder</p>
+                        <p id="active-customer-email" class="text-[10px] text-[var(--muted-main)] truncate">whistleblower.edu@gmail.com</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)]/40 border border-[var(--border-main)]">
+                        <p class="text-[10px] text-[var(--muted-main)] uppercase font-semibold">Category</p>
+                        <p id="active-category" class="font-semibold text-[var(--bright-main)] mt-0.5 truncate">Unauthorized Courses</p>
+                        <p class="text-[10px] text-emerald-400 font-semibold">Scrutiny Priority #1</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)]/40 border border-[var(--border-main)]">
+                        <p class="text-[10px] text-[var(--muted-main)] uppercase font-semibold">Assigned Officer</p>
+                        <p id="active-officer-name" class="font-semibold text-[var(--bright-main)] mt-0.5">Dr. Dharuv Bansal</p>
+                        <p class="text-[10px] text-[var(--muted-main)]">Joint Director (RB)</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)]/40 border border-[var(--border-main)]">
+                        <p class="text-[10px] text-[var(--muted-main)] uppercase font-semibold">Current Stage</p>
+                        <p id="active-status-text" class="font-semibold text-amber-400 mt-0.5">UNDER_PROCESS</p>
+                        <p class="text-[10px] text-[var(--muted-main)]">Inspection Committee constituted</p>
+                    </div>
+                </div>
+
+                <!-- Grievance Description -->
+                <div class="p-4 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] text-xs">
+                    <p class="text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider mb-1.5">Grievance Narrative</p>
+                    <p id="active-description" class="text-xs text-[var(--bright-main)] leading-relaxed">Regulation Bureau received inspection intelligence that the institute admitted 300 students against sanctioned intake of 180 without prior council approval.</p>
+                </div>
+            </div>
+
+            <!-- AUDIT TRAIL TIMELINE -->
+            <div class="solver-panel p-6 flex flex-col gap-3.5 min-h-[220px] max-h-[300px] overflow-y-auto">
+                <div class="flex items-center justify-between pb-2 border-b border-[var(--border-main)]">
+                    <span class="text-xs font-bold text-[var(--muted-main)] uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="git-commit" class="w-4 h-4 text-emerald-400"></i> Chronological Bureau Action Log
+                    </span>
+                    <span class="text-[11px] text-[var(--muted-main)] font-mono">Immutable Audit Record</span>
+                </div>
+                <div id="timeline-messages-list" class="space-y-3">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- OFFICIAL RESOLUTION & DOCKET COMPOSER -->
+            <div class="solver-panel p-6 space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-[var(--border-main)]">
+                    <span class="text-xs font-bold text-[var(--bright-main)] flex items-center gap-2 font-['Montserrat']">
+                        <i data-lucide="edit-3" class="w-4 h-4 text-emerald-400"></i> Record Official Bureau Redressal Action
+                    </span>
+                    <select id="canned-select" onchange="insertCannedResponse(this.value)" class="input-box text-xs px-3 py-1.5">
+                        <option value="">Quick Standard Action Templates...</option>
+                        <option value="notice">Issue Statutory Show-Cause Notice (10-Day Response)</option>
+                        <option value="inspection">Constitute Surprise Spot Verification Team</option>
+                        <option value="disposed">Verified Compliance & Close Grievance Dossier</option>
+                        <option value="escalated">Escalate to Standing Appellate Committee</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider mb-1.5">Update Case Status</label>
+                        <select id="action-status-select" class="w-full input-box px-3.5 py-2.5 text-xs">
+                            <option value="UNDER_PROCESS">UNDER_PROCESS (Investigation Active)</option>
+                            <option value="DISPOSED">DISPOSED (Grievance Resolved)</option>
+                            <option value="ESCALATED">ESCALATED (Threshold Exceeded)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider mb-1.5">Mandated Next Action / Milestone</label>
+                        <input type="text" id="action-next-input" placeholder="e.g. Committee report submission by 28-Feb-2026" class="w-full input-box px-3.5 py-2.5 text-xs">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-[var(--muted-main)] uppercase tracking-wider mb-1.5">Official Remarks & Statutory Directives</label>
+                    <textarea id="action-remarks-input" rows="2" placeholder="Record certified findings, dispatch notice dispatch IDs, or resolution decision..." class="w-full input-box px-3.5 py-2.5 text-xs"></textarea>
+                </div>
+
+                <div class="flex items-center justify-between pt-2">
+                    <p class="text-[11px] text-[var(--muted-main)]">Writes directly to MySQL database & indexes in Bloom filter.</p>
+                    <button onclick="submitCaseAction()" class="btn-solver px-6 py-2.5 text-xs flex items-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                        <span>Commit Resolution Action</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- HIGH-CONCURRENCY 10,000 REQUESTS BENCHMARK TOOL -->
+            <div class="solver-panel p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xs font-bold text-[var(--bright-main)] uppercase tracking-wider flex items-center gap-2 font-['Montserrat']">
+                            <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> High-Concurrency Ingestion Stress Benchmark (SIH Demonstration)
+                        </h3>
+                        <p class="text-[11px] text-[var(--muted-main)] mt-0.5">Stress test system with 1,000 to 10,000 synthetic grievance payloads and Bloom Filter indexing.</p>
+                    </div>
+                    <button id="btn-run-stress" onclick="runStressBenchmark(2000)" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 transition flex items-center gap-1.5">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ingest 2,000 Payloads
+                    </button>
+                </div>
+                <div id="stress-results-box" class="p-4 rounded-xl bg-[var(--bg-main)]/50 border border-[var(--border-main)] text-xs font-mono hidden">
+                    <!-- Populated dynamically after test -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Theme Switcher Script -->
+    <script src="js/theme-manager.js"></script>
+    <!-- Portal Utilities -->
+    <script src="js/portal-utils.js"></script>
+
+    <!-- Solver Application Controller Script -->
+    <script>
+        let complaints = [];
+        let activeTicket = null;
+        let overlaps = [];
+
+        function confirmSignOut() {
+            AICTE_UTILS.showConfirmDialog({
+                title: "Sign Out Confirmation",
+                message: "Are you sure you want to end your active solver investigation session?",
+                confirmText: "Sign Out",
+                onConfirm: () => {
+                    localStorage.removeItem('currentSolver');
+                    localStorage.removeItem('aicte_solver_token');
+                    window.location.href = '/index.html';
+                }
+            });
+        }
+
+        async function fetchComplaints() {
+            try {
+                const res = await fetch('/api/complaints');
+                const data = await res.json();
+                if (data.success) {
+                    complaints = data.complaints || [];
+                    document.getElementById('header-open-count').innerText = `${complaints.filter(c => c.status !== 'DISPOSED').length} Cases`;
+                    document.getElementById('header-solved-count').innerText = `${complaints.filter(c => c.status === 'DISPOSED').length} Disposed`;
+                    document.getElementById('queue-badge-count').innerText = `${complaints.length} Cases`;
+                    
+                    if (complaints.length > 0 && !activeTicket) {
+                        selectTicket(complaints[0].complaintId);
+                    }
+                    filterTickets();
+                }
+            } catch (err) {
+                console.error('Complaints fetch error:', err);
+            }
+        }
+
+        async function fetchOverlaps() {
+            try {
+                const res = await fetch('/api/overlaps');
+                const data = await res.json();
+                if (data.success) {
+                    overlaps = data.overlaps || [];
+                    document.getElementById('header-overlap-count').innerText = `${overlaps.length} Alerts`;
+                    if (overlaps.length > 0) {
+                        const top = overlaps[0];
+                        document.getElementById('overlap-alert-desc').innerHTML = `
+                            System detected multiple concurrent complaints across <strong>${top.bureaus.join('</strong> and <strong>')}</strong> for <em>${top.institutionName}</em>.
+                        `;
+                    }
+                }
+            } catch (err) {
+                console.warn('Overlaps error:', err);
+            }
+        }
+
+        function filterTickets() {
+            const query = (document.getElementById('queue-search')?.value || '').toLowerCase();
+            const priority = document.getElementById('filter-priority')?.value || 'ALL';
+            const bureau = document.getElementById('filter-bureau')?.value || 'ALL';
+
+            const filtered = complaints.filter(c => {
+                const matchesQ = !query || 
+                    c.complaintId.toLowerCase().includes(query) || 
+                    c.institutionName.toLowerCase().includes(query) || 
+                    c.subject.toLowerCase().includes(query);
+                const matchesP = priority === 'ALL' || c.priority === priority;
+                const matchesB = bureau === 'ALL' || c.assignedBureau === bureau;
+                return matchesQ && matchesP && matchesB;
+            });
+
+            renderTicketList(filtered);
+        }
+
+        function renderTicketList(list) {
+            const container = document.getElementById('ticket-list-container');
+            if (!container) return;
+
+            if (list.length === 0) {
+                container.innerHTML = `<p class="text-xs text-[var(--muted-main)] text-center py-6">No matching complaints found.</p>`;
+                return;
+            }
+
+            container.innerHTML = list.map(c => {
+                const isSelected = activeTicket && activeTicket.complaintId === c.complaintId;
+                const isCritical = c.priority === 'CRITICAL';
+                return `
+                    <div onclick="selectTicket('${c.complaintId}')" class="p-3.5 rounded-xl border border-[var(--border-main)] bg-[var(--bg-main)]/40 hover:bg-[var(--border-main)]/40 cursor-pointer transition ${isSelected ? 'active-ticket-selected' : ''}">
+                        <div class="flex items-center justify-between pb-1">
+                            <span class="font-mono text-[11px] font-bold text-indigo-300">${c.complaintId}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${isCritical ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                                ${c.priority}
+                            </span>
+                        </div>
+                        <h4 class="text-xs font-bold text-[var(--bright-main)] truncate mt-1">${c.subject}</h4>
+                        <p class="text-[10px] text-[var(--muted-main)] truncate mt-0.5">${c.institutionName}</p>
+                        <div class="flex items-center justify-between text-[10px] text-[var(--muted-main)] mt-2 pt-1 border-t border-[var(--border-main)]/40">
+                            <span>${c.assignedBureau.replace('Public Grievance Redressal Cell (PGRC)', 'PGRC').replace('Regulation Bureau (RB)', 'RB')}</span>
+                            <span class="font-mono text-amber-400">${c.daysRemaining || 18}d SLA</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function selectTicket(complaintId) {
+            activeTicket = complaints.find(c => c.complaintId === complaintId);
+            if (!activeTicket) return;
+
+            document.getElementById('active-ticket-id').innerText = activeTicket.complaintId;
+            document.getElementById('active-priority-badge').innerText = activeTicket.priority;
+            document.getElementById('active-bureau-badge').innerText = activeTicket.assignedBureau;
+            document.getElementById('active-subject').innerText = activeTicket.subject;
+            document.getElementById('active-institution').innerText = `${activeTicket.institutionName} • PID: ${activeTicket.permanentId}`;
+            document.getElementById('active-customer-name').innerText = activeTicket.complainantName || "Verified Stakeholder";
+            document.getElementById('active-customer-email').innerText = activeTicket.complainantEmail || "stakeholder@aicte-india.org";
+            document.getElementById('active-category').innerText = activeTicket.category;
+            document.getElementById('active-officer-name').innerText = activeTicket.assignedOfficer || "Dr. Dharuv Bansal";
+            document.getElementById('active-status-text').innerText = activeTicket.status;
+            document.getElementById('active-description').innerText = activeTicket.description;
+            document.getElementById('active-sla-countdown').innerText = `${activeTicket.daysRemaining || 18} Days Remaining`;
+
+            // Overlap check
+            const hasOverlap = overlaps.some(o => o.permanentId === activeTicket.permanentId);
+            document.getElementById('active-overlap-badge').style.display = hasOverlap ? 'inline-flex' : 'none';
+
+            // Populate timeline
+            const timeline = document.getElementById('timeline-messages-list');
+            if (activeTicket.actions && activeTicket.actions.length > 0) {
+                timeline.innerHTML = activeTicket.actions.map(a => `
+                    <div class="p-3 rounded-xl bg-[var(--bg-main)]/60 border border-[var(--border-main)] text-xs">
+                        <div class="flex items-center justify-between font-bold text-[var(--bright-main)]">
+                            <span class="text-indigo-300">${a.action}</span>
+                            <span class="text-[10px] text-[var(--muted-main)] font-mono">${a.date}</span>
+                        </div>
+                        <p class="text-[10px] text-cyan-400 mt-0.5">${a.officer} &bull; ${a.bureau}</p>
+                        <p class="text-[11px] text-[var(--muted-main)] mt-1.5">${a.remarks}</p>
+                    </div>
+                `).join('');
+            } else {
+                timeline.innerHTML = `<p class="text-xs text-[var(--muted-main)] py-2">Grievance registered. Awaiting initial committee scrutiny memo.</p>`;
+            }
+
+            filterTickets();
+            lucide.createIcons();
+        }
+
+        function filterByOverlappingInstitute(pid) {
+            document.getElementById('queue-search').value = pid;
+            filterTickets();
+        }
+
+        function insertCannedResponse(type) {
+            const remarksInput = document.getElementById('action-remarks-input');
+            const nextActionInput = document.getElementById('action-next-input');
+            const statusSelect = document.getElementById('action-status-select');
+
+            switch (type) {
+                case 'notice':
+                    statusSelect.value = 'UNDER_PROCESS';
+                    nextActionInput.value = 'Statutory reply submission within 10 days mandated by AICTE APH';
+                    remarksInput.value = 'Formal Show-Cause Notice dispatched to institution head. Directed to submit certified admission registers, fee receipts, and bank deposit statements.';
+                    break;
+                case 'inspection':
+                    statusSelect.value = 'UNDER_PROCESS';
+                    nextActionInput.value = 'Surprise spot verification team visit scheduled within 72 hours';
+                    remarksInput.value = 'Constituted three-member senior faculty inspection committee from Northern Regional Office to verify physical infrastructure and faculty roll registers.';
+                    break;
+                case 'disposed':
+                    statusSelect.value = 'DISPOSED';
+                    nextActionInput.value = 'File archived in AICTE central repository';
+                    remarksInput.value = 'Compliance verified. Institution refunded excess tuition fees directly to student bank account. Bank deposit receipt certified and verified by regional desk.';
+                    break;
+                case 'escalated':
+                    statusSelect.value = 'ESCALATED';
+                    nextActionInput.value = 'Standing Appellate Committee (SAC) hearing notice';
+                    remarksInput.value = 'Threshold breach: Institution failed to provide satisfactory explanation. Case escalated to Standing Appellate Committee for consideration of intake reduction.';
+                    break;
+            }
+        }
+
+        async function submitCaseAction() {
+            if (!activeTicket) return;
+
+            const status = document.getElementById('action-status-select').value;
+            const remarks = document.getElementById('action-remarks-input').value.trim();
+            const nextAction = document.getElementById('action-next-input').value.trim();
+
+            if (!remarks) {
+                AICTE_UTILS.showConfirmDialog({
+                    title: "Missing Directives",
+                    message: "Please enter official remarks or certified findings before committing this bureau resolution action.",
+                    confirmText: "Understood",
+                    cancelText: "Close"
+                });
+                return;
+            }
+
+            AICTE_UTILS.showConfirmDialog({
+                title: "Commit Resolution Directive",
+                message: `Are you sure you want to commit status "${status}" for grievance ${activeTicket.complaintId}? This will update the immutable audit log and synchronize with MySQL.`,
+                confirmText: "Commit Action",
+                onConfirm: async () => {
+                    try {
+                        const res = await fetch(`/api/complaints/${encodeURIComponent(activeTicket.complaintId)}/action`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                status: status,
+                                officer: "Er. Udish Singla",
+                                bureau: "Regulation Bureau (RB)",
+                                action: `Statutory Action: ${status}`,
+                                remarks: remarks,
+                                nextAction: nextAction
+                            })
+                        });
+
+                        const data = await res.json();
+                        if (data.success) {
+                            document.getElementById('action-remarks-input').value = '';
+                            document.getElementById('action-next-input').value = '';
+                            await fetchComplaints();
+                            selectTicket(activeTicket.complaintId);
+                        }
+                    } catch (err) {
+                        console.error('Error committing action:', err);
+                    }
+                }
+            });
+        }
+
+        async function runStressBenchmark(count = 2000) {
+            const btn = document.getElementById('btn-run-stress');
+            const resultBox = document.getElementById('stress-results-box');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i> Ingesting ${count} Payloads...`;
+            resultBox.classList.remove('hidden');
+            resultBox.innerHTML = `Running high-concurrency ingestion benchmark with ${count} synthetic grievances...`;
+
+            try {
+                const res = await fetch('/api/stress-test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ count: count })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    const b = data.benchmark;
+                    resultBox.innerHTML = `
+                        <div class="text-emerald-400 font-bold mb-2 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Benchmark Ingestion Complete: ${b.ingested} records processed
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-[11px] text-[var(--bright-main)] mt-2">
+                            <div class="p-2.5 bg-[var(--surface-main)] rounded-xl border border-[var(--border-main)]">Throughput: <span class="text-emerald-400 font-bold font-mono">${b.throughputReqPerSec.toLocaleString()} req/sec</span></div>
+                            <div class="p-2.5 bg-[var(--surface-main)] rounded-xl border border-[var(--border-main)]">Duration: <span class="text-amber-400 font-bold font-mono">${b.durationMs} ms</span></div>
+                            <div class="p-2.5 bg-[var(--surface-main)] rounded-xl border border-[var(--border-main)]">Heap Allocated: <span class="text-blue-400 font-bold font-mono">${b.heapAllocatedMb} MB</span></div>
+                            <div class="p-2.5 bg-[var(--surface-main)] rounded-xl border border-[var(--border-main)]">Bloom Density: <span class="text-purple-400 font-bold font-mono">${b.bloomFilterStats.bitDensityPct}%</span></div>
+                        </div>
+                    `;
+                    fetchComplaints();
+                } else {
+                    resultBox.innerText = `Error: ${data.message}`;
+                }
+            } catch (e) {
+                resultBox.innerText = `Error running stress benchmark: ${e.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> Ingest 2,000 Payloads`;
+                lucide.createIcons();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchComplaints();
+            fetchOverlaps();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

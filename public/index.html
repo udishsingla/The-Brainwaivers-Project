@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en" class="palette-1 style-glass">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICTE Samadhan - Unified Grievance & Overlap Redressal Portal</title>
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Theme Engine -->
+    <link rel="stylesheet" href="css/themes.css">
+    <!-- Portal Visual Enhancements & Micro-Interactions -->
+    <link rel="stylesheet" href="css/portal-enhancements.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--bright-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            overflow-x: hidden;
+            padding: 0 1.5rem 3rem 1.5rem;
+            position: relative;
+        }
+
+        /* Ambient Glowing Background Orbs */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+        .glow-1 {
+            width: 520px;
+            height: 520px;
+            background: #6366F1;
+            top: -120px;
+            left: -120px;
+        }
+        .glow-2 {
+            width: 480px;
+            height: 480px;
+            background: #06B6D4;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* Top Government Header Strip */
+        .gov-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: rgba(9, 14, 23, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--theme-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--theme-text-secondary);
+            z-index: 1000;
+        }
+        .gov-flag {
+            display: inline-flex;
+            width: 14px;
+            height: 9px;
+            flex-direction: column;
+            border-radius: 1px;
+            overflow: hidden;
+            margin-right: 8px;
+        }
+        .flag-strip-o { height: 3px; background: #FF9933; }
+        .flag-strip-w { height: 3px; background: #FFFFFF; }
+        .flag-strip-g { height: 3px; background: #138808; }
+
+        .gov-top-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-top-util {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--theme-border);
+            color: var(--theme-text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-top-util:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--brand-primary);
+        }
+
+        /* Main Auth Card Container */
+        .container {
+            background-color: var(--surface-main);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+            width: 960px;
+            max-width: 100%;
+            min-height: 640px;
+            border: 1px solid var(--theme-border);
+            z-index: 10;
+            margin-top: 72px;
+            transition: all 0.4s ease;
+        }
+
+        .container h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--theme-text-primary);
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.5px;
+        }
+
+        .container p.form-subtitle {
+            font-size: 0.8rem;
+            color: var(--theme-text-secondary);
+            margin-bottom: 1.1rem;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        /* Form Container Panes */
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.65s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding: 2.2rem 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .sign-in {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.active .sign-in {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sign-up {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container.active .sign-up {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            pointer-events: auto;
+            animation: moveIn 0.65s;
+        }
+
+        @keyframes moveIn {
+            0%, 49.99% { opacity: 0; z-index: 1; }
+            50%, 100% { opacity: 1; z-index: 5; }
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Form Inputs */
+        .input-group {
+            width: 100%;
+            position: relative;
+            margin-bottom: 0.65rem;
+        }
+
+        .input-group > i.fa-solid:not(.password-toggle-icon) {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--theme-text-muted);
+            font-size: 0.85rem;
+            transition: color 0.2s;
+            /* pointer-events: none; */
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 11px 14px 11px 40px;
+            font-size: 0.82rem;
+            border-radius: 12px;
+            border: 1px solid var(--theme-border);
+            background: rgba(9, 14, 23, 0.55);
+            color: var(--theme-text-primary);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: #6366F1;
+            background: rgba(9, 14, 23, 0.85);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .input-field:focus + i {
+            color: #6366F1;
+        }
+
+        select.input-field {
+            appearance: none;
+            cursor: pointer;
+            padding-right: 32px;
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--theme-text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Buttons */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+            color: #FFFFFF;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 0.35rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(99, 102, 241, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Role Selector Tabs */
+        .role-switch-container {
+            width: 100%;
+            display: flex;
+            background: rgba(9, 14, 23, 0.6);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--theme-border);
+            margin-bottom: 1.1rem;
+            gap: 4px;
+        }
+
+        .role-tab-btn {
+            flex: 1;
+            padding: 8px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--theme-text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .role-tab-btn.active {
+            background: #6366F1;
+            color: #FFFFFF;
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Demo Credentials Quick Pill Box */
+        .demo-pills-box {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.65rem 0.85rem;
+            background: rgba(9, 14, 23, 0.4);
+            border: 1px dashed var(--theme-border);
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .demo-pills-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--theme-text-secondary);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .demo-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--theme-text-primary);
+            font-size: 0.72rem;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-bottom: 2px;
+        }
+
+        .demo-pill:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--theme-border);
+        }
+
+        /* Sliding Toggle Overlay Panel */
+        .toggle-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: all 0.65s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 150px 0 0 150px;
+            z-index: 100;
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .container.active .toggle-container {
+            transform: translateX(-100%);
+            border-radius: 0 150px 150px 0;
+        }
+
+        .toggle {
+            background: linear-gradient(135deg, #131D33 0%, #1E293B 50%, #4F46E5 100%);
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: all 0.65s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .container.active .toggle {
+            transform: translateX(50%);
+        }
+
+        .toggle-panel {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            transform: translateX(0);
+            transition: all 0.65s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toggle-left {
+            transform: translateX(-200%);
+        }
+
+        .container.active .toggle-left {
+            transform: translateX(0);
+        }
+
+        .toggle-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.active .toggle-right {
+            transform: translateX(200%);
+        }
+
+        .toggle-panel h1 {
+            color: #FFFFFF;
+            font-size: 1.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .toggle-panel p {
+            font-size: 0.85rem;
+            color: #E2E8F0;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-toggle-switch {
+            background: transparent;
+            border: 2px solid #FFFFFF;
+            color: #FFFFFF;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 10px 36px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-toggle-switch:hover {
+            background: #FFFFFF;
+            color: #090E17;
+            transform: scale(1.04);
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            top: 60px;
+            right: 25px;
+            background: #131D33;
+            color: #F8FAFC;
+            border: 1px solid var(--theme-border);
+            padding: 12px 22px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            font-size: 0.82rem;
+            font-weight: 600;
+            z-index: 99999;
+            transform: translateY(-80px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #toast.success {
+            border-left: 4px solid #10B981;
+        }
+
+        #toast.error {
+            border-left: 4px solid #F43F5E;
+        }
+
+        #toast.info {
+            border-left: 4px solid #06B6D4;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 860px) {
+            .container {
+                width: 100%;
+                min-height: 680px;
+                border-radius: 20px;
+            }
+            .toggle-container {
+                display: none;
+            }
+            .form-container {
+                width: 100% !important;
+                padding: 2rem 1.5rem;
+            }
+            .container.active .sign-in {
+                transform: translateX(-100%);
+            }
+            .container.active .sign-up {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="palette-1 style-glass">
+
+    <!-- Accessibility: Skip to Content Anchor -->
+    <a href="#container" class="skip-to-content">Skip to Main Content</a>
+
+    <!-- Top Scroll Progress Bar -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- Ambient Glowing Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Government Identification Strip -->
+    <header class="gov-top-bar">
+        <div style="display:flex; align-items:center;">
+            <span class="gov-flag">
+                <span class="flag-strip-o"></span>
+                <span class="flag-strip-w"></span>
+                <span class="flag-strip-g"></span>
+            </span>
+            <span>GOVERNMENT OF INDIA &bull; MINISTRY OF EDUCATION &bull; AICTE STATUTORY PORTAL</span>
+        </div>
+        <div class="gov-top-actions">
+            <button class="btn-top-util btn-open-search" title="Site Search (Ctrl+K)">
+                <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
+                <span>Search</span>
+            </button>
+            <button class="btn-top-util" onclick="AICTE_UTILS.toggleLightDarkMode()" title="Toggle Dark / Light Mode">
+                <i class="fa-solid fa-sun theme-toggle-icon"></i>
+            </button>
+            <div style="display:flex; align-items:center; gap:6px; font-size:0.7rem; color:#10B981;">
+                <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#10B981;" class="animate-pulse"></span>
+                <span>MySQL 8.0 &bull; SIH 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notification Toast -->
+    <div id="toast">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastMessage">Notification message</span>
+    </div>
+
+    <!-- Main Auth Card Container -->
+    <main class="container" id="container">
+
+        <!-- =========================================================
+             1. SIGN UP FORM (Registration Pane)
+             ========================================================= -->
+        <div class="form-container sign-up">
+            <form id="registerForm" onsubmit="handleRegisterSubmit(event)">
+                <h1>Create Account</h1>
+                <p class="form-subtitle">Register to submit grievances and track redressal dossiers</p>
+
+                <div class="input-group">
+                    <input type="text" id="regName" class="input-field" placeholder="Full Name (e.g. Rahul Verma)" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="regUsername" class="input-field" placeholder="Username (e.g. rahul_verma)" required>
+                    <i class="fa-solid fa-at"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="regEmail" class="input-field" placeholder="Email Address (e.g. student@gmail.com)" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div class="input-group">
+                    <select id="regUserType" class="input-field" required>
+                        <option value="STUDENT">Stakeholder: Student</option>
+                        <option value="FACULTY">Stakeholder: Faculty Member</option>
+                        <option value="PARENT">Stakeholder: Parent / Guardian</option>
+                        <option value="CITIZEN">Stakeholder: General Citizen</option>
+                    </select>
+                    <i class="fa-solid fa-id-card"></i>
+                    <i class="fa-solid fa-chevron-down select-arrow"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="regPhone" class="input-field" placeholder="Phone Number (e.g. +91 98111 22334)" value="+91 98111 22334">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="regPassword" class="input-field" placeholder="Password (minimum 6 characters)" minlength="6" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <!-- Mandatory Privacy Policy Agreement Checkbox -->
+                <div class="privacy-consent-box" id="regPrivacyBox">
+                    <input type="checkbox" id="regPrivacyConsent" required onchange="toggleRegButtonState()">
+                    <label for="regPrivacyConsent">
+                        I confirm that I have read and agree to the <a href="privacy_policy.html" target="_blank">Privacy Policy</a> & Grievance Redressal Terms. (<a href="javascript:void(0)" onclick="openPrivacyModal()">Quick Preview</a>)
+                    </label>
+                </div>
+
+                <button type="submit" id="btnRegisterSubmit" class="btn-submit" disabled>
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Register to MySQL</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- =========================================================
+             2. SIGN IN FORM (Login Pane)
+             ========================================================= -->
+        <div class="form-container sign-in">
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                <h1>Sign In</h1>
+                <p class="form-subtitle">AICTE Samadhan Integrated Grievance Portal</p>
+
+                <!-- Dual Role Selector Tabs -->
+                <div class="role-switch-container">
+                    <button type="button" class="role-tab-btn active" id="tabCitizen" onclick="setLoginRole('USER')">
+                        <i class="fa-solid fa-user-graduate"></i> Citizen / Student
+                    </button>
+                    <button type="button" class="role-tab-btn" id="tabSolver" onclick="setLoginRole('SOLVER')">
+                        <i class="fa-solid fa-shield-halved"></i> AICTE Official
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="loginUsername" class="input-field" placeholder="Username or Registered Email" required>
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
+                    <!-- <i class="fa-solid fa-lock"></i> -->
+                </div>
+
+                <!-- Mandatory Privacy Policy Agreement Checkbox for Login -->
+                <div class="privacy-consent-box" id="loginPrivacyBox">
+                    <input type="checkbox" id="loginPrivacyConsent" required onchange="toggleLoginButtonState()">
+                    <label for="loginPrivacyConsent">
+                        I agree to the <a href="privacy_policy.html" target="_blank">Privacy Policy</a> & statutory data governance guidelines.
+                    </label>
+                </div>
+
+                <button type="submit" id="btnLoginSubmit" class="btn-submit" disabled>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Sign In</span>
+                </button>
+
+                <!-- Demo Credentials Quick Selector (No Raw Emojis) -->
+                <!-- <div class="demo-pills-box">
+                    <div class="demo-pills-label">
+                        <span><i class="fa-solid fa-bolt text-amber-400"></i> Instant Test Credentials</span>
+                        <span style="font-size:0.6rem; color:#10B981; font-weight:700;">Click to fill</span>
+                    </div>
+                    <button type="button" class="demo-pill" onclick="prefillLogin('student.test@gmail.com', 'password123', 'USER')">
+                        <i class="fa-solid fa-user-graduate text-indigo-400"></i>
+                        <span><strong>Student:</strong> student.test@gmail.com / password123</span>
+                    </button>
+                    <button type="button" class="demo-pill" onclick="prefillLogin('usingla_be26@thapar.edu', 'udishsingla', 'SOLVER')">
+                        <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                        <span><strong>AICTE Official:</strong> usingla_be26@thapar.edu / udishsingla</span>
+                    </button>
+                </div> -->
+            </form>
+        </div>
+
+        <!-- =========================================================
+             3. SLIDING TOGGLE OVERLAY PANEL
+             ========================================================= -->
+        <div class="toggle-container">
+            <div class="toggle">
+                <!-- Left Panel (Visible when Sign Up is active) -->
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Already registered with AICTE Samadhan? Sign in to monitor your ongoing grievances, audit trails, and SLA resolutions.</p>
+                    <button class="btn-toggle-switch" id="loginToggleBtn">Sign In</button>
+                </div>
+
+                <!-- Right Panel (Visible when Sign In is active) -->
+                <div class="toggle-panel toggle-right">
+                    <h1>New Stakeholder?</h1>
+                    <p>Register your account with AICTE to lodge complaints, view real-time inquiry timelines, and receive official notices.</p>
+                    <button class="btn-toggle-switch" id="registerToggleBtn">Create Account</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- =========================================================
+         4. "KHULA KHULA" (SPACIOUS) PORTAL HIGHLIGHTS & ARCHITECTURE
+         ========================================================= -->
+    <section class="reveal-on-scroll khula-container" style="max-width:960px; width:100%; margin-top:2.5rem;">
+        <div style="text-align:center; margin-bottom:2rem;">
+            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; font-weight:700; color:#06B6D4; background:rgba(6,182,212,0.1); padding:4px 12px; border-radius:9999px; border:1px solid rgba(6,182,212,0.25);">
+                Smart India Hackathon 2026 Submission
+            </span>
+            <h2 style="font-family:'Montserrat',sans-serif; font-size:1.75rem; font-weight:700; color:var(--theme-text-primary); margin-top:0.75rem;">
+                Why AICTE Samadhan Redefines Grievance Monitoring
+            </h2>
+            <p style="font-size:0.85rem; color:var(--theme-text-secondary); max-width:640px; margin:0.5rem auto 0 auto; line-height:1.6;">
+                Engineered for extreme concurrency, algorithmic cross-bureau overlap detection, and verifiable statutory SLA timelines.
+            </p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
+            <!-- Card 1 -->
+            <div class="khula-card" style="background:var(--theme-surface); border:1px solid var(--theme-border);">
+                <div style="width:44px; height:44px; border-radius:12px; background:rgba(99,102,241,0.2); color:#6366F1; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; font-size:1.1rem;">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h3 style="font-size:1.05rem; font-weight:700; color:var(--theme-text-primary); margin-bottom:0.5rem;">
+                    Bloom Filter Ingestion
+                </h3>
+                <p style="font-size:0.8rem; color:var(--theme-text-secondary); line-height:1.55;">
+                    Bit-array probabilistic index allowing sub-millisecond duplicate grievance detection without expensive database queries during heavy load.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="khula-card" style="background:var(--theme-surface); border:1px solid var(--theme-border);">
+                <div style="width:44px; height:44px; border-radius:12px; background:rgba(244,63,94,0.2); color:#F43F5E; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; font-size:1.1rem;">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h3 style="font-size:1.05rem; font-weight:700; color:var(--theme-text-primary); margin-bottom:0.5rem;">
+                    Cross-Bureau Overlap Engine
+                </h3>
+                <p style="font-size:0.8rem; color:var(--theme-text-secondary); line-height:1.55;">
+                    Automatically links parallel grievances lodged across Regulation Bureau (RB), PGRC, and Regional Offices for synchronized redressal.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="khula-card" style="background:var(--theme-surface); border:1px solid var(--theme-border);">
+                <div style="width:44px; height:44px; border-radius:12px; background:rgba(16,185,129,0.2); color:#10B981; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; font-size:1.1rem;">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <h3 style="font-size:1.05rem; font-weight:700; color:var(--theme-text-primary); margin-bottom:0.5rem;">
+                    Statutory 30-Day SLA
+                </h3>
+                <p style="font-size:0.8rem; color:var(--theme-text-secondary); line-height:1.55;">
+                    Live countdown timelines, automated escalation alerts, and immutable chronological audit trails mandated under the Approval Process Handbook.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         5. EXPANDABLE FAQ SECTION
+         ========================================================= -->
+    <section class="reveal-on-scroll khula-container" style="max-width:960px; width:100%; margin-top:1rem;">
+        <div style="text-align:center; margin-bottom:1.75rem;">
+            <h2 style="font-family:'Montserrat',sans-serif; font-size:1.45rem; font-weight:700; color:var(--theme-text-primary);">
+                Frequently Asked Statutory Questions
+            </h2>
+            <p style="font-size:0.8rem; color:var(--theme-text-secondary); margin-top:0.35rem;">
+                Official procedures, privacy compliance, and redressal mechanisms
+            </p>
+        </div>
+
+        <div class="faq-accordion-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+                <span>How does AICTE Samadhan detect overlapping cross-bureau grievances?</span>
+                <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body">
+                Our cross-bureau overlap engine checks incoming grievances against existing dossiers using AICTE Permanent Institute IDs, category classification, and temporal proximity. When parallel inquiries are detected between the Regulation Bureau (RB) and Public Grievance Redressal Cell (PGRC), a joint inquiry alert is dispatched to both bureaus to avoid conflicting orders.
+            </div>
+        </div>
+
+        <div class="faq-accordion-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+                <span>What is the statutory resolution timeframe (SLA) for grievances?</span>
+                <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body">
+                Under the AICTE Approval Process Handbook (APH), all formal institutional grievances are governed by a statutory 30-day Service Level Agreement (SLA). The system tracks the remaining timeline dynamically, triggering automated high-priority escalation if an inquiry remains unaddressed within 5 days of the deadline.
+            </div>
+        </div>
+
+        <div class="faq-accordion-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+                <span>How is citizen privacy protected under the Digital Personal Data Protection Act?</span>
+                <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body">
+                All personal identifiers (email, phone, student records) are encrypted at rest using AES-256 and salted hash algorithms. Complainant identities are shielded from institutions during initial scrutiny to protect students from victimization, strictly adhering to our comprehensive <a href="/privacy_policy.html" style="color:#06B6D4;">Privacy Policy</a>.
+            </div>
+        </div>
+
+        <div class="faq-accordion-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+                <span>What supporting evidence can be attached to a grievance dossier?</span>
+                <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body">
+                Complainants may upload authenticated PDF dossiers, fee payment receipts, written communication from college administrators, or official inspection photos up to 10MB per submission.
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         6. QUICK PRIVACY POLICY MODAL
+         ========================================================= -->
+    <div id="quick-privacy-modal" style="position:fixed; inset:0; z-index:999999; background:rgba(0,0,0,0.75); backdrop-filter:blur(12px); display:none; align-items:center; justify-content:center; padding:1.5rem;">
+        <div style="background:#0E1726; border:1px solid var(--theme-border); border-radius:1.5rem; max-width:680px; width:100%; max-height:85vh; overflow-y:auto; padding:2rem; box-shadow:0 25px 60px rgba(0,0,0,0.6);">
+            <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:1rem; margin-bottom:1.25rem;">
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                    <i class="fa-solid fa-shield-halved text-cyan-400 text-lg"></i>
+                    <h3 style="font-size:1.15rem; font-weight:700; color:#F8FAFC;">AICTE Privacy Policy & Terms</h3>
+                </div>
+                <button onclick="closePrivacyModal()" style="background:transparent; border:none; color:#94A3B8; font-size:1.2rem; cursor:pointer;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div style="font-size:0.8rem; color:#94A3B8; line-height:1.65; space-y:0.85rem;">
+                <p><strong>1. Scope & Purpose:</strong> This portal processes grievance data solely to facilitate dispute resolution, investigate regulatory non-compliance, and prevent cross-bureau administrative overlaps as mandated by the AICTE Act, 1987.</p>
+                <p><strong>2. Whistleblower Protection:</strong> The identity of student and faculty complainants is held strictly confidential and never disclosed to respondent institutions without explicit statutory legal process.</p>
+                <p><strong>3. Data Security & Bloom Filter:</strong> Technical identifiers and hash keys are indexed in an in-memory Bloom filter for high-concurrency deduplication without storing plaintext keys in unencrypted caches.</p>
+                <p><strong>4. Citizen Rights:</strong> Complainants possess statutory rights to review the audit trail, download certified dossier slips, and request correction of inaccurate records.</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; pt:1rem; border-top:1px solid rgba(255,255,255,0.08);">
+                <a href="/privacy_policy.html" target="_blank" style="color:#06B6D4; font-size:0.75rem; text-decoration:underline;">Read Full Statutory Policy Document &rarr;</a>
+                <button onclick="closePrivacyModal()" style="padding:8px 18px; font-size:0.75rem; font-weight:700; border-radius:10px; background:#6366F1; color:#FFFFFF; border:none; cursor:pointer;">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         7. FOOTER & METADATA
+         ========================================================= -->
+    <footer style="width:100%; max-width:960px; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--theme-border); display:flex; flex-direction:column; gap:0.75rem; text-align:center; font-size:0.72rem; color:var(--theme-text-muted);">
+        <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap;">
+            <a href="/user.html" style="color:var(--theme-text-secondary); text-decoration:none;"><i class="fa-solid fa-user-check text-xs mr-1"></i> Citizen Window</a>
+            <a href="/solver.html" style="color:var(--theme-text-secondary); text-decoration:none;"><i class="fa-solid fa-shield-halved text-xs mr-1"></i> Official Solver Desk</a>
+            <a href="/privacy_policy.html" style="color:var(--theme-text-secondary); text-decoration:none;"><i class="fa-solid fa-file-shield text-xs mr-1"></i> Full Privacy Policy</a>
+            <a href="javascript:void(0)" onclick="window.print()" style="color:var(--theme-text-secondary); text-decoration:none;"><i class="fa-solid fa-print text-xs mr-1"></i> Print Summary</a>
+        </div>
+        <div>
+            All India Council for Technical Education (AICTE) &bull; Ministry of Education, Government of India
+        </div>
+        <div>
+            <span class="portal-last-updated-text">October 27, 2026 &bull; AICTE Version 2026.1.4</span>
+        </div>
+    </footer>
+
+    <!-- Theme Switcher Script -->
+    <script src="js/theme-manager.js"></script>
+    <!-- Portal Utilities & Micro-Interactions -->
+    <script src="js/portal-utils.js"></script>
+
+    <!-- Page Controller & Authentication Script -->
+    <script>
+        const container = document.getElementById('container');
+        const registerToggleBtn = document.getElementById('registerToggleBtn');
+        const loginToggleBtn = document.getElementById('loginToggleBtn');
+
+        let selectedRole = 'USER';
+
+        // Sliding Animation Listeners
+        registerToggleBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
+
+        loginToggleBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+
+        // Switch Role Tab
+        function setLoginRole(role) {
+            selectedRole = role;
+            document.getElementById('tabCitizen').classList.toggle('active', role === 'USER');
+            document.getElementById('tabSolver').classList.toggle('active', role === 'SOLVER');
+        }
+
+        // Privacy Policy Checkbox Handlers
+        function toggleRegButtonState() {
+            const checked = document.getElementById('regPrivacyConsent').checked;
+            document.getElementById('btnRegisterSubmit').disabled = !checked;
+            if (checked) {
+                document.getElementById('regPrivacyBox').classList.remove('error-shake');
+            }
+        }
+
+        function toggleLoginButtonState() {
+            const checked = document.getElementById('loginPrivacyConsent').checked;
+            document.getElementById('btnLoginSubmit').disabled = !checked;
+            if (checked) {
+                document.getElementById('loginPrivacyBox').classList.remove('error-shake');
+            }
+        }
+
+        function openPrivacyModal() {
+            document.getElementById('quick-privacy-modal').style.display = 'flex';
+        }
+
+        function closePrivacyModal() {
+            document.getElementById('quick-privacy-modal').style.display = 'none';
+        }
+
+        // Expandable FAQ Accordion
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // Prefill Demo Credentials
+        function prefillLogin(username, password, role) {
+            setLoginRole(role);
+            document.getElementById('loginUsername').value = username;
+            document.getElementById('loginPassword').value = password;
+            // Auto check privacy checkbox for demo
+            document.getElementById('loginPrivacyConsent').checked = true;
+            toggleLoginButtonState();
+            showNotification(`Filled test credentials for ${role === 'SOLVER' ? 'AICTE Official' : 'Student'}`, 'info');
+        }
+
+        // Toast Notification System
+        function showNotification(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const text = document.getElementById('toastMessage');
+
+            text.textContent = message;
+            toast.className = `show ${type}`;
+
+            if (type === 'success') {
+                icon.className = 'fa-solid fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                icon.className = 'fa-solid fa-circle-exclamation text-rose-400';
+            } else {
+                icon.className = 'fa-solid fa-circle-info text-cyan-400';
+            }
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3600);
+        }
+
+        // Handle Registration Submission
+        async function handleRegisterSubmit(e) {
+            e.preventDefault();
+
+            const privacyConsent = document.getElementById('regPrivacyConsent');
+            if (!privacyConsent.checked) {
+                const box = document.getElementById('regPrivacyBox');
+                box.classList.remove('error-shake');
+                void box.offsetWidth;
+                box.classList.add('error-shake');
+                showNotification('You must accept the Privacy Policy to register.', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('btnRegisterSubmit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving to MySQL...';
+            submitBtn.disabled = true;
+
+            const payload = {
+                name: document.getElementById('regName').value.trim(),
+                username: document.getElementById('regUsername').value.trim(),
+                email: document.getElementById('regEmail').value.trim(),
+                userType: document.getElementById('regUserType').value,
+                phone: document.getElementById('regPhone').value.trim(),
+                password: document.getElementById('regPassword').value
+            };
+
+            // Include UTM tracking if present
+            if (window.AICTE_UTILS && window.AICTE_UTILS.getUtmData) {
+                payload.utmData = window.AICTE_UTILS.getUtmData();
+            }
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification(data.message || 'Registration successful! Switching to sign in...', 'success');
+                    document.getElementById('registerForm').reset();
+                    document.getElementById('loginUsername').value = payload.username;
+                    setTimeout(() => {
+                        container.classList.remove("active");
+                    }, 1200);
+                } else {
+                    showNotification(data.message || 'Registration failed.', 'error');
+                }
+            } catch (err) {
+                showNotification('Network or database connection error.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Handle Login Submission
+        async function handleLoginSubmit(e) {
+            e.preventDefault();
+
+            const privacyConsent = document.getElementById('loginPrivacyConsent');
+            if (!privacyConsent.checked) {
+                const box = document.getElementById('loginPrivacyBox');
+                box.classList.remove('error-shake');
+                void box.offsetWidth;
+                box.classList.add('error-shake');
+                showNotification('Please accept the Privacy Policy to proceed with sign in.', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('btnLoginSubmit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+            submitBtn.disabled = true;
+
+            const identifier = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: identifier,
+                        password: password,
+                        role: selectedRole
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification(data.message || 'Login successful! Redirecting...', 'success');
+
+                    if (data.role === 'SOLVER') {
+                        localStorage.setItem('aicte_solver_token', data.token);
+                        localStorage.setItem('currentSolver', JSON.stringify(data.solver));
+                        setTimeout(() => {
+                            window.location.href = data.redirectUrl || '/solver.html';
+                        }, 800);
+                    } else {
+                        localStorage.setItem('aicte_user_token', data.token);
+                        localStorage.setItem('currentUser', JSON.stringify(data.user));
+                        setTimeout(() => {
+                            window.location.href = data.redirectUrl || '/user.html';
+                        }, 800);
+                    }
+                } else {
+                    showNotification(data.message || 'Invalid username or password.', 'error');
+                }
+            } catch (err) {
+                showNotification('Server communication error. Check MySQL connection.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
